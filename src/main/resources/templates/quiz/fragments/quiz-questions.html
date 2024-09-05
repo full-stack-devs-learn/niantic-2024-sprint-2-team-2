@@ -1,4 +1,14 @@
-<p th:text="${question.questionNumber}"></p>
-
-<p>question</p>
+<div th:each="question:${questions}">
+    <p th:text="${question.questionNumber}"></p>
+    <p th:text="${question.questionText}"></p>
+</div>
 <!--Display 1 question at a time-->
+
+<form>
+    <div th:each="answer:${answers}">
+        <input th:id="${answer.answerId}" name="answers" type="radio" th:value="${answer.answerId}">
+        <label th:for="${answer.answerId}" th:text="${answer.answerText}">
+    </div>
+</form>
+<a><button>Submit</button></a>
+<!--Display answers here-->

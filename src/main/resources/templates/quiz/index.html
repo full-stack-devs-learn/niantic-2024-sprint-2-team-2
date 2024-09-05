@@ -4,7 +4,7 @@
 <div th:replace="fragments/head :: head"></div>
 
 <body>
-
+<script src="/js/quiz.js"></script>
 <div th:replace="fragments/navigation :: nav"></div>
 
 <div class="container mt-4">
@@ -13,7 +13,10 @@
         <p th:text="${quiz.title}"></p>
     </div>
     <div>
-        <a><button>Start Quiz</button></a>
+        <a><button id="start">Start Quiz</button></a>
+    </div>
+    <div id="quiz-container">
+
     </div>
 </div>
 
