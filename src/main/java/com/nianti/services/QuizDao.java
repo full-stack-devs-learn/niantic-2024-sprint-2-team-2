@@ -59,7 +59,7 @@ public class QuizDao
                 WHERE quiz_id = ?;
                 """;
 
-        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, quizId);
+        var row = jdbcTemplate.queryForRowSet(sql, quizId);
 
         if(row.next())
         {
