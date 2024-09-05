@@ -68,5 +68,6 @@ public class QuizDao
 
             return new Quiz(quizId, quizTitle, isLive);
         }
+        return null;
     }
 }
