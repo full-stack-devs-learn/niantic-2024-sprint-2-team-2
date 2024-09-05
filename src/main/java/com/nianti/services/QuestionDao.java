@@ -48,4 +48,28 @@ public class QuestionDao
 
         return questions;
     }
+
+    public Question getQuestionById(int questionId)
+    {
+        String sql = """
+                SELECT question_id
+                    , quiz_id
+                    , question_number
+                    , question_text
+                FROM question
+                WHERE question_id = ?;
+                """;
+
+        var row = jdbcTemplate.queryForRowSet(sql, questionId);
+
+        if(row.next())
+        {
+            int quizId = row.getInt("quiz_id");
+            int questionNumber = row.getInt("question_number");
+            String questionText = row.getString("question_text");
+
+            return new Question(questionId, quizId, questionNumber, questionText);
+        }
+        return null;
+    }
 }

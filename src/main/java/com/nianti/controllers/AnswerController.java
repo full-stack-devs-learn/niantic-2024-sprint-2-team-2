@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class AnswerController
 {
-    @Autowired
-    private AnswerDao answerDao;
-
-    @GetMapping("/quiz/{quizId}/{questionId}")
-    public String answersByQuestionId(Model model, @PathVariable int quizId, @PathVariable int questionId)
-    {
-        var answers = answerDao.getAnswersByQuestionId(questionId);
-
-        model.addAttribute("answers", answers);
-        return "quiz/fragments/answers-list";
-    }
+//    @Autowired
+//    private AnswerDao answerDao;
+//
+//    @GetMapping("/quiz/{quizId}/{questionId}")
+//    public String answersByQuestionId(Model model, @PathVariable int quizId, @PathVariable int questionId)
+//    {
+//        var answers = answerDao.getAnswersByQuestionId(questionId);
+//
+//        model.addAttribute("answers", answers);
+//        return "quiz/fragments/answers-list";
+//    }
 }
