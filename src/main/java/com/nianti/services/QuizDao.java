@@ -48,4 +48,25 @@ public class QuizDao
 
         return new Quiz(id, title, isLive);
     }
+
+    public Quiz getQuizById(int quizId)
+    {
+        String sql = """
+                SELECT quiz_id
+                    , quiz_title
+                    , is_live
+                FROM quiz
+                WHERE quiz_id = ?;
+                """;
+
+        SqlRowSet row = jdbcTemplate.queryForRowSet(sql, quizId);
+
+        if(row.next())
+        {
+            String quizTitle = row.getString("quiz_title");
+            Boolean isLive = row.getBoolean("is_live");
+
+            return new Quiz(quizId, quizTitle, isLive);
+        }
+    }
 }
