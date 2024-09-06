@@ -70,4 +70,16 @@ public class QuizDao
         }
         return null;
     }
+
+    public void addQuiz(Quiz quiz)
+    {
+        String sql = """
+                INSERT INTO quiz (quiz_title, is_live)
+                VALUES (?,?);
+                """;
+
+        jdbcTemplate.update(sql,
+                quiz.getTitle(),
+                quiz.isLive());
+    }
 }
