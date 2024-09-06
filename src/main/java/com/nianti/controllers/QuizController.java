@@ -1,6 +1,7 @@
 package com.nianti.controllers;
 
 import com.nianti.models.Quiz;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,8 +45,14 @@ public class QuizController
     }
 
     @PostMapping("/quiz/add")
-    public String addQuiz(Model model, @ModelAttribute("quiz") Quiz quiz)
+    public String addQuiz(Model model, @Valid @ModelAttribute("quiz") Quiz quiz, BindingResult result)
     {
+        if(result.hasErrors())
+        {
+            model.addAttribute("isInvalid", true);
+            return "quiz/add-edit";
+        }
+
         quizDao.addQuiz(quiz);
         return "redirect:/quiz";
     }
@@ -60,8 +67,14 @@ public class QuizController
     }
 
     @PostMapping("/quiz/{quizId}/edit")
-    public String editQuiz(@ModelAttribute("quiz") Quiz quiz, @PathVariable int quizId)
+    public String editQuiz(Model model, @Valid @ModelAttribute("quiz") Quiz quiz, @PathVariable int quizId, BindingResult result)
     {
+        if(result.hasErrors())
+        {
+            model.addAttribute("isInvalid", true);
+            return "redirect:/quiz/{quizId}/edit";
+        }
+
         quiz.setQuizId(quizId);
         quizDao.updateQuiz(quiz);
         return "redirect:/quiz";
