@@ -119,4 +119,14 @@ public class QuizDao
                     quiz.isLive(),
                     quiz.getQuizId());
     }
+
+    public void deleteQuiz(int quizId)
+    {
+        String sql = """
+                DELETE FROM quiz
+                WHERE quiz_id = ?;
+                """;
+
+        jdbcTemplate.update(sql, quizId);
+    }
 }
