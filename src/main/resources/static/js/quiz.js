@@ -31,7 +31,7 @@ function loadQuestion()
     throw new Error(response);
     }).then(data => {
         quizContainer.innerHTML = data;
-        displayFinalScore();
+        displaySubmit();
         evaluateAnswer();
     }).catch(error => {
         console.log(error)
@@ -67,7 +67,7 @@ function getQuestionCount()
                 startQuiz();})
 }
 
-function displayFinalScore()
+function displaySubmit()
 {
     // when we get to final question
     // on the final question, replace NEXT with SUBMIT button
@@ -75,10 +75,24 @@ function displayFinalScore()
     {
         const nextButton = document.getElementById("next-btn");
         nextButton.textContent = "Submit";
+
+        nextButton.addEventListener("click", () => displayFinalScore());
     }
 
+}
+
+function displayFinalScore()
+{
     // hide/replace the question and answer fragment
     // then display final SCORE on a new fragment
+    const quizContainer = document.getElementById("quiz-container");
+    quizContainer.classList.add("hide");
+
+    const scoreContainer = document.getElementById("score-container");
+    scoreContainer.classList.remove("hide");
+
+    const scoreDiv = document.getElementById("score");
+    scoreDiv.textContent = score;
 }
 
 // use fetch to get the Answer from server-side?
