@@ -20,9 +20,10 @@ public class QuestionDao
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Question> getQuestionsByQuizId(int quizId)
+    public Question getQuestionByQuizId(int quizId, int curQuestionIndex)
     {
-        ArrayList<Question> questions = new ArrayList<>();
+        int questionPerPage = 1;
+        int skip = curQuestionIndex - 1;
 
         String sql = """
                 SELECT question_id
@@ -30,23 +31,67 @@ public class QuestionDao
                     , question_number
                     , question_text
                 FROM question
-                WHERE quiz_id = ?;
+                WHERE quiz_id = ?
+                LIMIT ?, ?;
                 """;
 
-        var row = jdbcTemplate.queryForRowSet(sql, quizId);
+        var row = jdbcTemplate.queryForRowSet(sql, quizId, skip, questionPerPage);
 
-        while(row.next())
+        if(row.next())
         {
             int questionId = row.getInt("question_id");
             int questionNumber = row.getInt("question_number");
             String questionText = row.getString("question_text");
 
-            Question question = new Question(questionId, quizId, questionNumber, questionText);
-
-            questions.add(question);
+            return new Question(questionId, quizId, questionNumber, questionText);
         }
+        return null;
+    }
 
-        return questions;
+//    public List<Question> getQuestionsByQuizId(int quizId)
+//    {
+//        ArrayList<Question> questions = new ArrayList<>();
+//
+//        String sql = """
+//                SELECT question_id
+//                    , quiz_id
+//                    , question_number
+//                    , question_text
+//                FROM question
+//                WHERE quiz_id = ?;
+//                """;
+//
+//        var row = jdbcTemplate.queryForRowSet(sql, quizId);
+//
+//        while(row.next())
+//        {
+//            int questionId = row.getInt("question_id");
+//            int questionNumber = row.getInt("question_number");
+//            String questionText = row.getString("question_text");
+//
+//            Question question = new Question(questionId, quizId, questionNumber, questionText);
+//
+//            questions.add(question);
+//        }
+//
+//        return questions;
+//    }
+
+    public int getQuestionsCountByQuizId(int quizId)
+    {
+        String sql = """
+                SELECT COUNT(*) AS question_count
+                FROM question
+                WHERE quiz_id = ?;
+                """;
+
+        var row = jdbcTemplate.queryForRowSet(sql, quizId);
+
+        if(row.next())
+        {
+            return row.getInt("question_count");
+        }
+        return 0;
     }
 
     public Question getQuestionById(int questionId)

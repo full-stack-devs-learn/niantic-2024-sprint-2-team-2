@@ -17,10 +17,11 @@ public class QuestionController
     @Autowired
     private AnswerDao answerDao;
 
-    @GetMapping("/quiz/{quizId}/{questionId}")
-    public String questionsByQuizId(Model model, @PathVariable int quizId, @PathVariable int questionId)
+    @GetMapping("/quiz/{quizId}/{curQuestionIndex}")
+    public String questionByQuizId(Model model, @PathVariable int quizId, @PathVariable int curQuestionIndex)
     {
-        var question = questionDao.getQuestionById(questionId);
+        var question = questionDao.getQuestionByQuizId(quizId, curQuestionIndex);
+        int questionId = question.getQuestionId();
         var answers = answerDao.getAnswersByQuestionId(questionId);
 
         model.addAttribute("question", question);
