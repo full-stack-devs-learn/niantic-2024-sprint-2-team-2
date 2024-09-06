@@ -4,7 +4,7 @@ let score = 0;
 let numberOfQuestions = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
-    startQuiz();
+    getQuestionCount();
 });
 
 
@@ -31,7 +31,7 @@ function loadQuestion()
     throw new Error(response);
     }).then(data => {
         quizContainer.innerHTML = data;
-        getQuestionCount();
+        displayFinalScore();
         evaluateAnswer();
     }).catch(error => {
         console.log(error)
@@ -51,11 +51,9 @@ function evaluateAnswer()
             score++;
         }
 
-//        alert(`selection: ${selection}, score: ${score}`);
-
         questionNumber++;
-        displayFinalScore();
         loadQuestion();
+
     })
 }
 
@@ -64,23 +62,20 @@ function getQuestionCount()
     const url = `/api/quiz/${quizId}`;
 
     fetch(url).then(response => response.text())
-              .then(data => { numberOfQuestions = +data; })
+              .then(data => { 
+                numberOfQuestions = +data;
+                startQuiz();})
 }
 
 function displayFinalScore()
 {
     // when we get to final question
     // on the final question, replace NEXT with SUBMIT button
-//    let questionNumberminus
-    let q = questionNumber;
-    if (q > numberOfQuestions)
+    if (questionNumber === numberOfQuestions)
     {
         const nextButton = document.getElementById("next-btn");
         nextButton.textContent = "Submit";
     }
-    alert(`question number: ${questionNumber}, numberOfQuestions is: ${numberOfQuestions}, score is: ${score}, `);
-
-
 
     // hide/replace the question and answer fragment
     // then display final SCORE on a new fragment
