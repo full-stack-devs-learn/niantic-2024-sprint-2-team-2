@@ -16,8 +16,8 @@
         <a th:href="@{|/quiz/${quiz.quizId}|}">
             <div class="card-header" th:text="${quiz.title}"></div>
         </a>
-        <button>Edit</button>
-        <button>Delete</button>
+        <a th:href="@{|/quiz/${quiz.quizId}/edit|}" class="btn btn-secondary">Edit</a>
+        <a th:href="@{|/quiz/${quiz.quizId}/delete|}" class="btn btn-warning">Delete</a>
     </div>
 </div>
 

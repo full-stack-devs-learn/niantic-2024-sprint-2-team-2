@@ -49,4 +49,21 @@ public class QuizController
         quizDao.addQuiz(quiz);
         return "redirect:/quiz";
     }
+
+    @GetMapping("/quiz/{quizId}/edit")
+    public String editQuiz(Model model, @PathVariable int quizId)
+    {
+        Quiz quiz = quizDao.getQuizById(quizId);
+        model.addAttribute("quiz", quiz);
+        model.addAttribute("action", "edit");
+        return "quiz/add-edit";
+    }
+
+    @PostMapping("/quiz/{quizId}/edit")
+    public String editQuiz(@ModelAttribute("quiz") Quiz quiz, @PathVariable int quizId)
+    {
+        quiz.setQuizId(quizId);
+        quizDao.updateQuiz(quiz);
+        return "redirect:/quiz";
+    }
 }

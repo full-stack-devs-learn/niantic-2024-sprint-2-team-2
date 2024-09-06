@@ -82,4 +82,19 @@ public class QuizDao
                 quiz.getTitle(),
                 quiz.isLive());
     }
+
+    public void updateQuiz(Quiz quiz)
+    {
+        String sql = """
+                UPDATE quiz
+                SET quiz_title = ?
+                    , is_live = ?
+                WHERE quiz_id = ?;
+                """;
+
+        jdbcTemplate.update(sql,
+                    quiz.getTitle(),
+                    quiz.isLive(),
+                    quiz.getQuizId());
+    }
 }
