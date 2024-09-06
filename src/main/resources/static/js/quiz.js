@@ -15,7 +15,7 @@ function startQuiz()
         quizId = event.target.value;
         startButton.classList.add("hide");
         getQuestionCount();
-    })
+    }) 
 }
 
 function loadQuestion()
