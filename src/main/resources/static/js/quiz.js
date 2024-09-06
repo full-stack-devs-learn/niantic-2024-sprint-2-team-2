@@ -1,15 +1,15 @@
+let quizId = 1;
+let questionId = 1;
+
 document.addEventListener("DOMContentLoaded", () => {
-    loadPage();
-    calculateScore();
+    loadQuestion();
 });
 
 
-function loadPage()
+function loadQuestion()
 {
     const container = document.getElementById("quiz-container");
     const startButton = document.getElementById("start");
-    let quizId = 1;
-    let questionId = 1;
 
     // when start button is clicked
     startButton.addEventListener("click", () => {
@@ -25,9 +25,12 @@ function loadPage()
         throw new Error(response);
         }).then(data => {
             container.innerHTML = data;
+            calculateScore();
         }).catch(error => {
             console.log(error)
         });
+
+        
     })
 
 }
@@ -39,14 +42,17 @@ function calculateScore() {
 //    let selection = 0;
 
     // when submit button is clicked
+
     form.addEventListener("submit", (event) => {
         event.preventDefault();
-
-//        const selection = document.querySelector("input[name="answers"]:checked")
         let selection = event.target.value;
+
         if (selection) {
             score++;
         }
+
+        questionId++;
+        loadQuestion();
     })
 
     // use fetch to get the Answer
