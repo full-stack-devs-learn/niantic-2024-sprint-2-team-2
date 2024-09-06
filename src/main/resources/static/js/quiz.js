@@ -2,37 +2,37 @@ let quizId = 1;
 let questionId = 1;
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadQuestion();
+    startQuiz();
 });
 
 
-function loadQuestion()
+function startQuiz()
 {
-    const container = document.getElementById("quiz-container");
     const startButton = document.getElementById("start");
 
-    // when start button is clicked
     startButton.addEventListener("click", () => {
-        url = `/quiz/${quizId}/${questionId}`;
-
         startButton.classList.add("hide");
-
-        fetch(url).then(response => {
-        if(response.status === 200)
-        {
-            return response.text();
-        }
-        throw new Error(response);
-        }).then(data => {
-            container.innerHTML = data;
-            calculateScore();
-        }).catch(error => {
-            console.log(error)
-        });
-
-        
+        loadQuestion();
     })
+}
 
+function loadQuestion()
+{
+    const url = `/quiz/${quizId}/${questionId}`;
+    const quizContainer = document.getElementById("quiz-container");
+
+    fetch(url).then(response => {
+    if(response.status === 200)
+    {
+        return response.text();
+    }
+    throw new Error(response);
+    }).then(data => {
+        quizContainer.innerHTML = data;
+        calculateScore();
+    }).catch(error => {
+        console.log(error)
+    });
 }
 
 function calculateScore() {
@@ -45,7 +45,7 @@ function calculateScore() {
 
     form.addEventListener("submit", (event) => {
         event.preventDefault();
-        let selection = event.target.value;
+        const selection = event.target.answers.value;
 
         if (selection) {
             score++;
