@@ -40,6 +40,28 @@ public class QuizDao
         return quizzes;
     }
 
+    public List<Quiz> getAllLiveQuizzes()
+    {
+        ArrayList<Quiz> quizzes = new ArrayList<>();
+
+        String sql = """
+                SELECT quiz_id
+                    , quiz_title
+                    , is_live
+                FROM quiz
+                WHERE is_live = 1;
+                """;
+
+        var row = jdbcTemplate.queryForRowSet(sql);
+        while (row.next())
+        {
+            var quiz = mapRowToQuiz(row);
+            quizzes.add(quiz);
+        }
+
+        return quizzes;
+    }
+
     private Quiz mapRowToQuiz(SqlRowSet row)
     {
         int id = row.getInt("quiz_id");
@@ -64,7 +86,7 @@ public class QuizDao
         if(row.next())
         {
             String quizTitle = row.getString("quiz_title");
-            Boolean isLive = row.getBoolean("is_live");
+            boolean isLive = row.getBoolean("is_live");
 
             return new Quiz(quizId, quizTitle, isLive);
         }

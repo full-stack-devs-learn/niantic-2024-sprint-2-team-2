@@ -16,8 +16,9 @@
 <form id="add-quiz" method="post" th:object="${quiz}">
     <label th:for="*{title}">Quiz Title</label>
     <input th:field="*{title}" type="text">
+
     <label th:for="*{isLive}">Publish</label>
-    <input th:checked="*{isLive}" type="checkbox">
+    <input th:checked="*{Live}" type="checkbox" th:field="*{Live}">
 
     <button type="submit" value="Save">Add Quiz</button>
 </form>

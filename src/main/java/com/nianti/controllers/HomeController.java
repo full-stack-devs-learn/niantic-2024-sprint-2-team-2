@@ -15,7 +15,7 @@ public class HomeController
     @GetMapping("/")
     public String index(Model model)
     {
-        var quizzes = quizDao.getAllQuizzes();
+        var quizzes = quizDao.getAllLiveQuizzes();
 
         model.addAttribute("title", "Trivio Home");
         model.addAttribute("quizzes", quizzes);
