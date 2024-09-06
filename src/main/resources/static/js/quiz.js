@@ -92,7 +92,8 @@ function displayFinalScore()
     scoreContainer.classList.remove("hide");
 
     const scoreDiv = document.getElementById("score");
-    scoreDiv.textContent = score;
+    score = score/numberOfQuestions * 100;
+    scoreDiv.innerHTML = "%" + score;
 }
 
 // use fetch to get the Answer from server-side?
