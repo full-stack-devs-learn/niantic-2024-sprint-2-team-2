@@ -3,10 +3,12 @@
     <p th:text="${question.questionText}"></p>
 </div>
 
+<div class="form-check">
 <form id="quiz-form">
     <div th:each="answer:${answers}">
-        <input th:id="${answer.answerId}" name="answer" type="radio" th:value="${answer.isCorrect}" required>
-        <label th:for="${answer.answerId}" th:text="${answer.answerText}">
+        <input class="form-check-input" th:id="${answer.answerId}" name="answer" type="radio" th:value="${answer.isCorrect}" required>
+        <label class="form-check-label" th:for="${answer.answerId}" th:text="${answer.answerText}">
     </div>
-    <button id="next-btn" type="submit">Next</button>
+    <button class="btn btn-primary mt-3" id="next-btn" type="submit">Next</button>
 </form>
+</div>
