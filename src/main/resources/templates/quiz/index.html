@@ -12,7 +12,7 @@
         <p th:text="${quiz.title}"></p>
     </div>
     <div>
-        <button id="start">Start Quiz</button>
+        <button id="start" th:value="${quiz.quizId}">Start Quiz</button>
     </div>
     <div id="quiz-container">
         <!-- Questions and answers will be displayed here -->

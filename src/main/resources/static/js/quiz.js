@@ -1,20 +1,20 @@
-let quizId = 1;
 let questionNumber = 1;
 let score = 0;
 let numberOfQuestions = 0;
+let quizId;
 
 document.addEventListener("DOMContentLoaded", () => {
-    getQuestionCount();
+    startQuiz();
 });
-
 
 function startQuiz()
 {
     const startButton = document.getElementById("start");
 
-    startButton.addEventListener("click", () => {
+    startButton.addEventListener("click", (event) => {
+        quizId = event.target.value;
         startButton.classList.add("hide");
-        loadQuestion();
+        getQuestionCount();
     })
 }
 
@@ -64,7 +64,7 @@ function getQuestionCount()
     fetch(url).then(response => response.text())
               .then(data => { 
                 numberOfQuestions = +data;
-                startQuiz();})
+                loadQuestion();})
 }
 
 function displaySubmit()

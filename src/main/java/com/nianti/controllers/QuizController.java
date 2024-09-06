@@ -23,4 +23,10 @@ public class QuizController
 
         return "quiz/index";
     }
+
+//    @GetMapping("/quiz")
+//    public String quizManagement(Model model)
+//    {
+//
+//    }
 }
