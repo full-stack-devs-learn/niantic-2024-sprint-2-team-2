@@ -72,11 +72,39 @@ public class QuizController
         if(result.hasErrors())
         {
             model.addAttribute("isInvalid", true);
-            return "redirect:/quiz/{quizId}/edit";
+            return "/quiz/add-edit";
         }
 
         quiz.setQuizId(quizId);
         quizDao.updateQuiz(quiz);
+        return "redirect:/quiz";
+    }
+
+    @GetMapping("/quiz/{quizId}/delete")
+    public String deleteQuiz(Model model, @PathVariable int quizId)
+    {
+        var quiz = quizDao.getQuizById(quizId);
+
+        if (quiz == null)
+        {
+            return "404";
+        }
+
+        model.addAttribute("quiz", quiz);
+        return "quiz/delete";
+    }
+
+    @PostMapping("/quiz/{quizId}/delete")
+    public String deleteQuizConfirm(@PathVariable int quizId)
+    {
+        var quiz = quizDao.getQuizById(quizId);
+
+        if (quiz == null)
+        {
+            return "404";
+        }
+        quizDao.deleteQuiz(quizId);
+
         return "redirect:/quiz";
     }
 }
