@@ -2,13 +2,11 @@
     <p th:text="${question.questionNumber}"></p>
     <p th:text="${question.questionText}"></p>
 </div>
-<!--Display 1 question at a time-->
 
 <form id="quiz-form">
     <div th:each="answer:${answers}">
-        <input th:id="${answer.answerId}" name="answers" type="radio" th:value="${answer.isCorrect}">
-        <label th:for="${answer.answerId}" th:text="${answer.answerText}"></label>
+        <input th:id="${answer.answerId}" name="answer" type="radio" th:value="${answer.isCorrect}">
+        <label th:for="${answer.answerId}" th:text="${answer.answerText}">
     </div>
     <button id="submit-btn" type="submit">Submit</button>
 </form>
-<!--Display answers here-->

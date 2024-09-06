@@ -1,5 +1,6 @@
 let quizId = 1;
 let questionId = 1;
+let score = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
     startQuiz();
@@ -29,33 +30,32 @@ function loadQuestion()
     throw new Error(response);
     }).then(data => {
         quizContainer.innerHTML = data;
-        calculateScore();
+        evaluateAnswer();
     }).catch(error => {
         console.log(error)
     });
 }
 
-function calculateScore() {
-    let score = 0;
+function evaluateAnswer()
+{
     const form = document.getElementById("quiz-form");
-
-//    let selection = 0;
-
-    // when submit button is clicked
 
     form.addEventListener("submit", (event) => {
         event.preventDefault();
-        const selection = event.target.answers.value;
+        const selection = event.target.answer.value;
 
-        if (selection) {
+        if (selection) 
+        {
             score++;
         }
 
         questionId++;
         loadQuestion();
     })
+}
 
-    // use fetch to get the Answer
+
+// use fetch to get the Answer from server-side?
 //    const url = `quiz/answer/${selection}`;
 //
 ////    // use fetch to get the isCorrect value
@@ -65,4 +65,3 @@ function calculateScore() {
 ////        data.isCorrect
 ////    })
 
-}
