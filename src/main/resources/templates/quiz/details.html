@@ -26,7 +26,7 @@
         <table>
             <tr th:each="question:${questions}">
                 <td th:text="${question.questionNumber}"></td>
-                <td><a th:href="@{|/questions/${question.questionId}|}" th:text="${question.questionText}"></td>
+                <td><a th:href="@{|/questions/${question.questionId}|}" th:text="${question.questionText}"></a></td>
                 <td>
                     <a th:href="@{|/questions/${question.questionId}/edit|}" class="btn btn-primary">Edit</a>
                     <a th:href="@{|/questions/${question.questionId}/delete|}" class="btn btn-danger">Delete</a>
