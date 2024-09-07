@@ -15,7 +15,7 @@ public class QuizController
     @Autowired
     private QuizDao quizDao;
 
-    @GetMapping("/quiz/{quizId}")
+    @GetMapping("/quizzes/{quizId}")
     public String quiz(Model model, @PathVariable int quizId)
     {
         var quiz = quizDao.getQuizById(quizId);
@@ -25,7 +25,7 @@ public class QuizController
         return "quiz/index";
     }
 
-    @GetMapping("/quiz")
+    @GetMapping("/quizzes")
     public String quizManagement(Model model)
     {
         var quizzes = quizDao.getAllQuizzes();
@@ -35,7 +35,7 @@ public class QuizController
         return "quiz/quiz-management";
     }
 
-    @GetMapping("/quiz/add")
+    @GetMapping("/quizzes/add")
     public String addQuiz(Model model)
     {
         model.addAttribute("quiz", new Quiz());
@@ -44,7 +44,7 @@ public class QuizController
         return "quiz/add-edit";
     }
 
-    @PostMapping("/quiz/add")
+    @PostMapping("/quizzes/add")
     public String addQuiz(Model model, @Valid @ModelAttribute("quiz") Quiz quiz, BindingResult result)
     {
         if(result.hasErrors())
@@ -55,10 +55,10 @@ public class QuizController
         }
 
         quizDao.addQuiz(quiz);
-        return "redirect:/quiz";
+        return "redirect:/quizzes";
     }
 
-    @GetMapping("/quiz/{quizId}/edit")
+    @GetMapping("/quizzes/{quizId}/edit")
     public String editQuiz(Model model, @PathVariable int quizId)
     {
         Quiz quiz = quizDao.getQuizById(quizId);
@@ -67,7 +67,7 @@ public class QuizController
         return "quiz/add-edit";
     }
 
-    @PostMapping("/quiz/{quizId}/edit")
+    @PostMapping("/quizzes/{quizId}/edit")
     public String editQuiz(Model model, @Valid @ModelAttribute("quiz") Quiz quiz, BindingResult result, @PathVariable int quizId)
     {
         if(result.hasErrors())
@@ -79,10 +79,10 @@ public class QuizController
 
         quiz.setQuizId(quizId);
         quizDao.updateQuiz(quiz);
-        return "redirect:/quiz";
+        return "redirect:/quizzes";
     }
 
-    @GetMapping("/quiz/{quizId}/delete")
+    @GetMapping("/quizzes/{quizId}/delete")
     public String deleteQuiz(Model model, @PathVariable int quizId)
     {
         var quiz = quizDao.getQuizById(quizId);
@@ -96,7 +96,7 @@ public class QuizController
         return "quiz/delete";
     }
 
-    @PostMapping("/quiz/{quizId}/delete")
+    @PostMapping("/quizzes/{quizId}/delete")
     public String deleteQuizConfirm(@PathVariable int quizId)
     {
         var quiz = quizDao.getQuizById(quizId);
@@ -107,6 +107,6 @@ public class QuizController
         }
         quizDao.deleteQuiz(quizId);
 
-        return "redirect:/quiz";
+        return "redirect:/quizzes";
     }
 }

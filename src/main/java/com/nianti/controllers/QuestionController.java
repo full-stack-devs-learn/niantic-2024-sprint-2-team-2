@@ -17,7 +17,7 @@ public class QuestionController
     @Autowired
     private AnswerDao answerDao;
 
-    @GetMapping("/quiz/{quizId}/{curQuestionIndex}")
+    @GetMapping("/quizzes/{quizId}/{curQuestionIndex}")
     public String questionByQuizId(Model model, @PathVariable int quizId, @PathVariable int curQuestionIndex)
     {
         var question = questionDao.getQuestionByQuizId(quizId, curQuestionIndex);

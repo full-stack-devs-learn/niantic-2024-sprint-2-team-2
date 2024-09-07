@@ -14,7 +14,7 @@ public class AnswerController
 //    @Autowired
 //    private AnswerDao answerDao;
 //
-//    @GetMapping("/quiz/{quizId}/{questionId}")
+//    @GetMapping("/quizzes/{quizId}/{questionId}")
 //    public String answersByQuestionId(Model model, @PathVariable int quizId, @PathVariable int questionId)
 //    {
 //        var answers = answerDao.getAnswersByQuestionId(questionId);

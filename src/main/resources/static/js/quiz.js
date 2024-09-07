@@ -20,7 +20,7 @@ function startQuiz()
 
 function loadQuestion()
 {
-    const url = `/quiz/${quizId}/${questionNumber}`;
+    const url = `/quizzes/${quizId}/${questionNumber}`;
     const quizContainer = document.getElementById("quiz-container");
 
     fetch(url).then(response => {
@@ -59,7 +59,7 @@ function evaluateAnswer()
 
 function getQuestionCount()
 {
-    const url = `/api/quiz/${quizId}`;
+    const url = `/api/quizzes/${quizId}`;
 
     fetch(url).then(response => response.text())
               .then(data => { 

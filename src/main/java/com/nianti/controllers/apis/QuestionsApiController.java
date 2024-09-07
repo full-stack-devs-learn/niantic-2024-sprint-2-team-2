@@ -12,7 +12,7 @@ public class QuestionsApiController
     @Autowired
     private QuestionDao questionDao;
 
-    @GetMapping("/api/quiz/{quizId}")
+    @GetMapping("/api/quizzes/{quizId}")
     public int getQuestionsCount(@PathVariable int quizId)
     {
         int count = questionDao.getQuestionsCountByQuizId(quizId);
