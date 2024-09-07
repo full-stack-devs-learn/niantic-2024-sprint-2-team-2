@@ -8,8 +8,8 @@
 <div th:replace="fragments/navigation :: nav"></div>
 
 <div class="container mt-4">
-    <p th:text="${quiz.title}"></p>
-    <button id="start" th:value="${quiz.quizId}">Start Quiz</button>
+    <h1 th:text="${quiz.title}"></h1>
+    <button id="start" th:value="${quiz.quizId}" class="btn btn-primary">Start Quiz</button>
 
     <div id="quiz-container">
         <!-- Questions and answers will be displayed here -->

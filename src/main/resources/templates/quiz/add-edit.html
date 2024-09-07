@@ -13,13 +13,13 @@
         <h1 th:if="${action} =='edit'">Edit Quiz</h1>
     </div>
     <form id="add-quiz" method="post" th:object="${quiz}" novalidate th:class="${isInvalid} ? 'was-validated' : ''">
-        <div class="form-group">
+        <div class="form-group mb-2">
             <label th:for="*{title}">Quiz Title</label>
             <input th:field="*{title}" type="text" id="title" required>
             <div class="invalid-feedback">Please enter a quiz title.</div>
         </div>
 
-        <div class="form-check">
+        <div class="form-check mb-4">
             <input class="form-check-input" th:checked="*{live}" type="checkbox" th:field="*{live}">
             <label class="form-check-label" th:for="*{live}">Make quiz live?</label>
         </div>

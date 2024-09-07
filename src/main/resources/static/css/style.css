@@ -1,3 +1,8 @@
 .hide {
     display: none;
 }
+
+.form-select
+{
+    width: auto !important;
+}

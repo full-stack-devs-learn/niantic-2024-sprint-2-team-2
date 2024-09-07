@@ -69,8 +69,6 @@ function getQuestionCount()
 
 function displaySubmit()
 {
-    // when we get to final question
-    // on the final question, replace NEXT with SUBMIT button
     if (questionNumber === numberOfQuestions)
     {
         const nextButton = document.getElementById("next-btn");
@@ -78,13 +76,10 @@ function displaySubmit()
 
         nextButton.addEventListener("click", () => displayFinalScore());
     }
-
 }
 
 function displayFinalScore()
 {
-    // hide/replace the question and answer fragment
-    // then display final SCORE on a new fragment
     const quizContainer = document.getElementById("quiz-container");
     quizContainer.classList.add("hide");
 
@@ -93,16 +88,5 @@ function displayFinalScore()
 
     const scoreDiv = document.getElementById("score");
     score = score/numberOfQuestions * 100;
-    scoreDiv.innerHTML = "%" + score;
+    scoreDiv.innerHTML = "%" + Math.round(score);
 }
-
-// use fetch to get the Answer from server-side?
-//    const url = `quiz/answer/${selection}`;
-//
-////    // use fetch to get the isCorrect value
-////    fetch(url).then(response => {
-////    if(response)
-////    }).then(data => {
-////        data.isCorrect
-////    })
-

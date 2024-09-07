@@ -1,14 +1,8 @@
-<div>
-    <p th:text="${question.questionNumber}"></p>
-    <p th:text="${question.questionText}"></p>
-</div>
-
-<div class="form-check">
+<p th:text="${question.questionNumber} + '. ' + ${question.questionText}"></p>
 <form id="quiz-form">
-    <div th:each="answer:${answers}">
+    <div class="form-check" th:each="answer:${answers}">
         <input class="form-check-input" th:id="${answer.answerId}" name="answer" type="radio" th:value="${answer.isCorrect}" required>
         <label class="form-check-label" th:for="${answer.answerId}" th:text="${answer.answerText}">
     </div>
     <button class="btn btn-primary mt-3" id="next-btn" type="submit">Next</button>
 </form>
-</div>
