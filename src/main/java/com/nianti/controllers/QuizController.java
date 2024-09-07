@@ -50,6 +50,7 @@ public class QuizController
         if(result.hasErrors())
         {
             model.addAttribute("isInvalid", true);
+            model.addAttribute("action", "add");
             return "quiz/add-edit";
         }
 
@@ -72,6 +73,7 @@ public class QuizController
         if(result.hasErrors())
         {
             model.addAttribute("isInvalid", true);
+            model.addAttribute("action", "edit");
             return "quiz/add-edit";
         }
 
