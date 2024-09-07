@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/head :: head"></div>
+
 <body>
-$END$
+<!--<script src="/js/answer-add.js"></script>-->
+<div th:replace="fragments/navigation :: nav"></div>
+<main>
+    <section class="container mt-4">
+        <h1>Question Details</h1>
+
+        <table class="table">
+            <tr>
+                <th>Question Id</th>
+                <td th:text="${question.questionId}"></td>
+            </tr>
+            <tr>
+                <th>Quiz Id</th>
+                <td th:text="${question.quizId}"></td>
+            </tr>
+            <tr>
+                <th>Question Number</th>
+                <td th:text="${question.questionNumber}"></td>
+            </tr>
+            <tr>
+                <th>Question Text</th>
+                <td th:text="${question.questionText}"></td>
+            </tr>
+        </table>
+    </section>
+    <section class="container mt-4">
+        <h2>Answers</h2>
+        <table>
+            <tr th:each="answer:${answers}">
+                <td th:text="${answer.answerId}"></td>
+                <td th:text="${answer.answerText}"></td>
+                <td th:if="${answer.isCorrect} == false" th:href="@{|/answers/${answer.isCorrect}|}">incorrect</td>
+                <td th:if="${answer.isCorrect} == true" th:href="@{|/answers/${answer.isCorrect}|}">correct</td>
+                <td>
+                    <a th:href="@{|/answers/${answer.answerId}/edit|}" class="btn btn-primary">Edit</a>
+                    <!-- Added th:if to hide delete button when answer is correct -->
+                    <a th:if="${answer.isCorrect} == false" th:href="@{|/answers/${answer.answerId}/delete|}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </section>
+</main>
 </body>
 </html>
