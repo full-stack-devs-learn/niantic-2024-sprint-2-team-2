@@ -48,34 +48,34 @@ public class QuestionDao
         return null;
     }
 
-//    public List<Question> getQuestionsByQuizId(int quizId)
-//    {
-//        ArrayList<Question> questions = new ArrayList<>();
-//
-//        String sql = """
-//                SELECT question_id
-//                    , quiz_id
-//                    , question_number
-//                    , question_text
-//                FROM question
-//                WHERE quiz_id = ?;
-//                """;
-//
-//        var row = jdbcTemplate.queryForRowSet(sql, quizId);
-//
-//        while(row.next())
-//        {
-//            int questionId = row.getInt("question_id");
-//            int questionNumber = row.getInt("question_number");
-//            String questionText = row.getString("question_text");
-//
-//            Question question = new Question(questionId, quizId, questionNumber, questionText);
-//
-//            questions.add(question);
-//        }
-//
-//        return questions;
-//    }
+    public List<Question> getAllQuestionsByQuizId(int quizId)
+    {
+        ArrayList<Question> questions = new ArrayList<>();
+
+        String sql = """
+                SELECT question_id
+                    , quiz_id
+                    , question_number
+                    , question_text
+                FROM question
+                WHERE quiz_id = ?;
+                """;
+
+        var row = jdbcTemplate.queryForRowSet(sql, quizId);
+
+        while(row.next())
+        {
+            int questionId = row.getInt("question_id");
+            int questionNumber = row.getInt("question_number");
+            String questionText = row.getString("question_text");
+
+            Question question = new Question(questionId, quizId, questionNumber, questionText);
+
+            questions.add(question);
+        }
+
+        return questions;
+    }
 
     public int getQuestionsCountByQuizId(int quizId)
     {
@@ -116,5 +116,45 @@ public class QuestionDao
             return new Question(questionId, quizId, questionNumber, questionText);
         }
         return null;
+    }
+
+    public void addQuestion(Question question)
+    {
+        String sql = """
+                INSERT INTO question (quiz_id, question_number, question_text)
+                VALUES (?, ?, ?);
+                """;
+
+        jdbcTemplate.update(sql,
+                            question.getQuizId(),
+                            question.getQuestionNumber(),
+                            question.getQuestionText());
+    }
+
+    public void updateQuestion(Question question)
+    {
+        String sql = """
+                UPDATE question
+                SET quiz_id = ?
+                    , question_number = ?
+                    , question_text = ?
+                WHERE question_id = ?;
+                """;
+
+        jdbcTemplate.update(sql,
+                            question.getQuizId(),
+                            question.getQuestionNumber(),
+                            question.getQuestionText(),
+                            question.getQuestionId());
+    }
+
+    public void deleteQuestion(int questionId)
+    {
+        String sql = """
+                DELETE FROM question
+                WHERE question_id = ?;
+                """;
+
+        jdbcTemplate.update(sql, questionId);
     }
 }
