@@ -45,20 +45,36 @@ http://localhost:8080
 You can change the port on which the application runs by editing the `src/main/resources/application.properties` file. Feel free to explore the codebase and make any desired changes to suit your needs. If you have any questions or issues during the installation process, please feel free to open an issue or contact the project maintainers.
 
 ## Development process
-We used Trello's kanban board to manage our project development. High priority tasks were given red labels. Below is a screenshot of our kanban board mid-way through the project.
+We used Trello's kanban board to manage our project progress. High priority tasks were given red labels. Below is a screenshot of our kanban board at an earlier stage in the project.
 
 ![trello-in-progress.png](/img/trello-in-progress.png)
 
-### Diagrams
-#### Database
-We diagrammed the pre-made database and DTO's so that we could better understand the relationship between groups of data, and reference at a glance.
+When we started our project, we focused on building out the main purpose of our application: **to allow users to be able to take a quiz**. Our general approach was to **develop iteratively**: we broke up big features into smaller tasks and went through cycles of coding, testing, and refining.
 
+### Diagrams
+We diagrammed the database, models, and services so that we could better understand the relationship between groups of data, and reference at a glance.
+
+**Database**
 ![trivio-database-diagram](/img/trivio-database-diagram.png)
 
+**Models**
 ![trivio-dto-diagram](/img/trivio-dto-diagram.png)
 
-## Challenges
+**Services**
+TODO, once we have the app complete.
 
+## Challenges
+### Challenge 1
+
+### Challenge 2
+
+### Code that we're proud of
+#### Eri
+For me, the code that I'm particularly proud of is the loadQuestion() function in the `quiz.js` file. I was struggling to understand why our code wasn't executing at the correct timing, and then it finally clicked with me what `fetch()` actually does, what a 'promise' means, and what functions I should put in `then()`.
+
+![trivio-eri-code](/img/trivio-eri-code.png)
+
+#### Chin
 
 ## Retrospective
 This project allowed us to further understand how Java, JavaScript, SpringBoot, and Thymeleaf work together to build a full web application.
@@ -71,6 +87,6 @@ This project allowed us to further understand how Java, JavaScript, SpringBoot, 
 
 ### Future Ideas
 - Allow user to edit quizzes, questions, and answers from the same details page without redirecting to a new "adding" screen.
-- Allow user the option to go back to previous questions
+- Validate answers on server-side instead of client-side so that answers are hidden when inspecting the HTML.
 - When adding new questions, the form should indicate which question numbers have already been used.
 - Implement more custom CSS styling
