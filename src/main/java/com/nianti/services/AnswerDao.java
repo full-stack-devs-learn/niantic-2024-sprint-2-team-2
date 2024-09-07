@@ -49,4 +49,71 @@ public class AnswerDao
 
         return answers;
     }
+
+    public Answer getCorrectAnswer(int questionId)
+    {
+        int correct = 1; // correct answers have a value of 1 in database
+
+        String sql = """
+                SELECT answer_id
+                    , question_id
+                    , answer_text
+                    , is_correct
+                FROM answer
+                WHERE question_id = ? AND is_correct = ?;
+                """;
+
+        var row = jdbcTemplate.queryForRowSet(sql, questionId, correct);
+
+        while(row.next())
+        {
+            int answerId = row.getInt("answer_id");
+            String answerText = row.getString("answer_text");
+            Boolean isCorrect = row.getBoolean("is_correct");
+
+            return new Answer(answerId, questionId, answerText, isCorrect);
+        }
+
+        return null;
+    }
+    
+    public void addAnswer(Answer answer)
+    {
+        String sql = """
+                INSERT INTO quiz (question_id, answer_text, is_correct)
+                VALUES (?, ?, ?)
+                """;
+
+        jdbcTemplate.update(sql,
+                answer.getQuestionId(),
+                answer.getAnswerText(),
+                answer.isCorrect());
+    }
+
+    public void updateAnswer(Answer answer)
+    {
+        String sql = """
+                SET question_id = ?
+                    , answer_text = ?
+                    , is_correct = ?
+                WHERE answer_id = ?;
+                """;
+
+        jdbcTemplate.update(sql,
+                answer.getQuestionId(),
+                answer.getAnswerText(),
+                answer.isCorrect(),
+                answer.getAnswerId());
+    }
+
+    public void deleteAnswer(int answerId)
+    {
+        String sql = """
+                DELETE from answer
+                WHERE answer_id = ?;
+                """;
+
+        jdbcTemplate.update(sql, answerId);
+    }
+
 }
