@@ -45,16 +45,32 @@ http://localhost:8080
 You can change the port on which the application runs by editing the `src/main/resources/application.properties` file. Feel free to explore the codebase and make any desired changes to suit your needs. If you have any questions or issues during the installation process, please feel free to open an issue or contact the project maintainers.
 
 ## Development process
-We used Trello's kanban board to manage our project development. High priority tasks were given red labels.
+We used Trello's kanban board to manage our project development. High priority tasks were given red labels. Below is a screenshot of our kanban board mid-way through the project.
 
 ![trello-in-progress.png](/img/trello-in-progress.png)
 
 ### Diagrams
 #### Database
-We diagrammed the pre-made database so that we could better understand the relationship between tables of data, and reference at a glance.
+We diagrammed the pre-made database and DTO's so that we could better understand the relationship between groups of data, and reference at a glance.
 
 ![trivio-database-diagram](/img/trivio-database-diagram.png)
 
+![trivio-dto-diagram](/img/trivio-dto-diagram.png)
+
 ## Challenges
 
+
 ## Retrospective
+This project allowed us to further understand how Java, JavaScript, SpringBoot, and Thymeleaf work together to build a full web application.
+
+### Things we would do differently
+- Plan out the hierarchy of URLs so that we can structure them and have proper grouping within sections of the website.
+
+### Things we would do the same
+- 
+
+### Future Ideas
+- Allow user to edit quizzes, questions, and answers from the same details page without redirecting to a new "adding" screen.
+- Allow user the option to go back to previous questions
+- When adding new questions, the form should indicate which question numbers have already been used.
+- Implement more custom CSS styling

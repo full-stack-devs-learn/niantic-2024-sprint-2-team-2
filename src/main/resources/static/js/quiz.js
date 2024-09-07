@@ -31,7 +31,7 @@ function loadQuestion()
     throw new Error(response);
     }).then(data => {
         quizContainer.innerHTML = data;
-        displaySubmit();
+        isItSubmittable();
         evaluateAnswer();
     }).catch(error => {
         console.log(error)
@@ -67,7 +67,7 @@ function getQuestionCount()
                 loadQuestion();})
 }
 
-function displaySubmit()
+function isItSubmittable()
 {
     if (questionNumber === numberOfQuestions)
     {
