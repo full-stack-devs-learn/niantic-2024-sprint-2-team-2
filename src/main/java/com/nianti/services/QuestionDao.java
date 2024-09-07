@@ -118,6 +118,25 @@ public class QuestionDao
         return null;
     }
 
+    public String getQuestionText(int questionId)
+    {
+        String sql = """
+                SELECT question_text
+                FROM question
+                WHERE question_id = ?;
+                """;
+
+        var row = jdbcTemplate.queryForRowSet(sql, questionId);
+
+        if(row.next())
+        {
+            String questionText = row.getString("question_text");
+
+            return questionText;
+        }
+        return null;
+    }
+
     public void addQuestion(Question question)
     {
         String sql = """
