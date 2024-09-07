@@ -13,9 +13,9 @@
         <h1 th:if="${action} =='edit'">Edit Quiz</h1>
     </div>
     <form id="add-quiz" method="post" th:object="${quiz}" novalidate th:class="${isInvalid} ? 'was-validated' : ''">
-        <div class="form-group mb-2">
-            <label th:for="*{title}">Quiz Title</label>
-            <input th:field="*{title}" type="text" id="title" required>
+        <div class="row mb-3">
+            <label th:for="*{title}" class="col-sm-2 col-form-label">Quiz Title</label>
+            <input th:field="*{title}" type="text" class="col-sm-10" id="title" required>
             <div class="invalid-feedback">Please enter a quiz title.</div>
         </div>
 
@@ -24,7 +24,7 @@
             <label class="form-check-label" th:for="*{live}">Make quiz live?</label>
         </div>
 
-        <button type="submit" value="Save">Submit</button>
+        <button type="submit" value="Save" class="btn btn-primary">Submit</button>
     </form>
 </div>
 

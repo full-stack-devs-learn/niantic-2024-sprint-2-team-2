@@ -31,7 +31,7 @@
     </section>
     <section class="container mt-5">
         <h2>Answers</h2>
-        <a class="btn btn-primary" th:href="@{|/question/${question.questionId}/answer/add|}">+ Add Answer</a>
+        <a class="btn btn-primary mb-3" th:href="@{|/questions/${question.questionId}/answer/add|}">+ Add Answer</a>
         <table class="table table-light align-middle">
             <tr th:each="answer:${answers}">
                 <td th:text="${answer.answerId}"></td>

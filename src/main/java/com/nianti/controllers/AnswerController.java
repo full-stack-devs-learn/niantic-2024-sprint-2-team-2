@@ -28,7 +28,7 @@ public class AnswerController
 //        return "quiz/fragments/answers-list";
 //    }
 
-    @GetMapping("/question/{questionId}/answer/add")
+    @GetMapping("/questions/{questionId}/answers/add")
     public String addAnswer(Model model, @PathVariable int questionId)
     {
         var questions = questionDao.getAllQuestionsByQuizId(questionId);

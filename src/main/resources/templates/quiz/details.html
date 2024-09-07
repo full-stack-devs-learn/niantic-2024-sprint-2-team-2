@@ -23,13 +23,14 @@
     </section>
     <section class="container mt-5">
         <h2>All Questions</h2>
-        <a class="btn btn-primary" th:href="@{|/quizzes/${quiz.quizId}/questions/add|}">+ Add Question</a>
+        <a class="btn btn-primary mb-3" th:href="@{|/quizzes/${quiz.quizId}/questions/add|}">+ Add Question</a>
         <table class="table table-light align-middle">
             <tr th:each="question:${questions}">
                 <td th:text="${question.questionNumber}"></td>
-                <td><a th:href="@{|/questions/${question.questionId}|}" th:text="${question.questionText}"></a></td>
+                <td><a th:href="@{|/quizzes/${question.quizId}/questions/${question.questionId}|}" th:text="${question.questionText}"></a></td>
                 <td>
-                    <a th:href="@{|/questions/${question.questionId}/edit|}" class="btn btn-primary">Edit</a>
+                    <a th:href="@{|/quizzes/${question.quizId}/questions/${question.questionId}|}" class="btn btn-primary">Details</a>
+                    <a th:href="@{|/questions/${question.questionId}/edit|}" class="btn btn-secondary">Edit</a>
                     <a th:href="@{|/questions/${question.questionId}/delete|}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>

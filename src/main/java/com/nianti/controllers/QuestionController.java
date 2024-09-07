@@ -39,8 +39,8 @@ public class QuestionController
         return "quiz/fragments/quiz-questions";
     }
 
-    @GetMapping("questions/{questionId}")
-    public String questionDetails(Model model, @PathVariable int questionId)
+    @GetMapping("quizzes/{quizId}/questions/{questionId}")
+    public String questionDetails(Model model, @PathVariable int quizId, @PathVariable int questionId)
     {
         var question = questionDao.getQuestionById(questionId);
 
@@ -73,12 +73,16 @@ public class QuestionController
     }
 
     @PostMapping("/quizzes/{quizId}/questions/add")
-    public String addQuestion(Model model, @Valid @ModelAttribute("question") Question question, BindingResult result)
+    public String addQuestion(Model model, @Valid @ModelAttribute("question") Question question, BindingResult result, @PathVariable int quizId)
     {
         if(result.hasErrors())
         {
             var quizzes = quizDao.getAllQuizzes();
+            var quizTitle = quizDao.getQuizById(quizId).getTitle();
+
             model.addAttribute("quizzes", quizzes);
+            model.addAttribute("selectedQuizId", quizId);
+            model.addAttribute("selectedQuizTitle", quizTitle);
             model.addAttribute("isInvalid", true);
             model.addAttribute("action", "add");
             return "question/add-edit";

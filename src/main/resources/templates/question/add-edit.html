@@ -13,10 +13,18 @@
         <h1 th:if="${action} =='edit'">Edit Question</h1>
     </div>
     <form id="add-question" method="post" th:object="${question}" novalidate th:class="${isInvalid} ? 'was-validated' : ''">
-        <div class="row mb-3">
+        <div class="row mb-3" th:if="${action} == 'add'">
             <label th:for="*{quizId}" class="col-sm-2 col-form-label">Quiz</label>
             <input id="quiz-title" type="text" disabled th:value="${selectedQuizTitle}" class="col-sm-10">
             <input type="number" hidden th:name="quiz-id" th:id="quiz-id" th:value="${selectedQuizId}">
+        </div>
+
+        <div class="row mb-3" th:if="${action} == 'edit'">
+            <label th:for="*{quizId}" class="col-sm-2 col-form-label">Quiz</label>
+            <select name="quiz" class="form-select col-sm-10" th:field="*{quizId}">
+                <option th:each="quiz:${quizzes}" th:value="${quiz.quizId}" th:text="${quiz.title}">
+                </option>
+            </select>
         </div>
 
         <div class="row mb-3">
@@ -31,7 +39,7 @@
             <div class="invalid-feedback">Please enter the question text.</div>
         </div>
 
-        <button type="submit" value="Save">Submit</button>
+        <button type="submit" value="Save" class="btn btn-primary">Submit</button>
     </form>
 </div>
 
