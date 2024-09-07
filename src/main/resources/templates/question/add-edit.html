@@ -22,13 +22,13 @@
 
         <div class="form-group">
             <label th:for="*{questionNumber}">Question number</label>
-            <input th:field="*{questionNumber}" type="number" min="1">
+            <input th:field="*{questionNumber}" type="number" min="1" id="question-number">
             <div class="invalid-feedback">Please enter a number greater than 0.</div>
         </div>
 
         <div class="form-group">
             <label th:for="*{questionText}">Question text</label>
-            <input th:field="*{questionText}" type="text" required>
+            <input th:field="*{questionText}" type="text" id="question-text" required>
             <div class="invalid-feedback">Please enter the question text.</div>
         </div>
 

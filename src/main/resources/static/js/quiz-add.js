@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const addQuiz = document.getElementById("add-quiz");
-    const title = document.getElementByID("title");
+    const title = document.getElementById("title");
 
     title.addEventListener("input", () => {
         addQuiz.classList.remove("was-validated");
