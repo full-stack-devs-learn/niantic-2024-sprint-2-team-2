@@ -21,6 +21,35 @@ public class AnswerDao
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public List<Answer> getAllAnswers()
+    {
+        ArrayList<Answer> answers = new ArrayList<>();
+
+        String sql = """
+                SELECT answer_id
+                    , question_id
+                    , answer_text
+                    , is_correct
+                FROM answer;
+                """;
+
+        var row = jdbcTemplate.queryForRowSet(sql);
+
+        while(row.next())
+        {
+            int answerId = row.getInt("answer_id");
+            int questionId = row.getInt("question_id");
+            String answerText = row.getString("answer_text");
+            Boolean isCorrect = row.getBoolean("is_correct");
+
+            Answer answer = new Answer(answerId, questionId, answerText, isCorrect);
+
+            answers.add(answer);
+        }
+
+        return answers;
+    }
+
     public List<Answer> getAnswersByQuestionId(int questionId)
     {
         ArrayList<Answer> answers = new ArrayList<>();
