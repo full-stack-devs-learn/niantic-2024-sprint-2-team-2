@@ -21,9 +21,10 @@
             </tr>
         </table>
     </section>
-    <section class="container mt-4">
+    <section class="container mt-5">
         <h2>All Questions</h2>
-        <table>
+        <a class="btn btn-primary" th:href="@{|/quizzes/${quiz.quizId}/questions/add|}">+ Add Question</a>
+        <table class="table table-light align-middle">
             <tr th:each="question:${questions}">
                 <td th:text="${question.questionNumber}"></td>
                 <td><a th:href="@{|/questions/${question.questionId}|}" th:text="${question.questionText}"></a></td>

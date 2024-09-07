@@ -57,19 +57,22 @@ public class QuestionController
         return "question/details";
     }
 
-    @GetMapping("/questions/add")
-    public String addQuestion(Model model)
+    @GetMapping("/quizzes/{quizId}/questions/add")
+    public String addQuestion(Model model, @PathVariable int quizId)
     {
         var quizzes = quizDao.getAllQuizzes();
+        var quizTitle = quizDao.getQuizById(quizId).getTitle();
 
         model.addAttribute("question", new Question());
         model.addAttribute("quizzes", quizzes);
+        model.addAttribute("selectedQuizId", quizId);
+        model.addAttribute("selectedQuizTitle", quizTitle);
         model.addAttribute("action", "add");
 
         return "question/add-edit";
     }
 
-    @PostMapping("/questions/add")
+    @PostMapping("/quizzes/{quizId}/questions/add")
     public String addQuestion(Model model, @Valid @ModelAttribute("question") Question question, BindingResult result)
     {
         if(result.hasErrors())
@@ -98,6 +101,7 @@ public class QuestionController
 
         model.addAttribute("question", question);
         model.addAttribute("quizzes", quizzes);
+        model.addAttribute("action", "edit");
         return "question/add-edit";
     }
 

@@ -15,10 +15,8 @@
     <form id="add-question" method="post" th:object="${question}" novalidate th:class="${isInvalid} ? 'was-validated' : ''">
         <div class="row mb-3">
             <label th:for="*{quizId}" class="col-sm-2 col-form-label">Quiz</label>
-            <select name="quiz" class="form-select col-sm-10" th:field="*{quizId}">
-                <option th:each="quiz:${quizzes}" th:value="${quiz.quizId}" th:text="${quiz.title}">
-                </option>
-            </select>
+            <input id="quiz-title" type="text" disabled th:value="${selectedQuizTitle}" class="col-sm-10">
+            <input type="number" hidden th:name="quiz-id" th:id="quiz-id" th:value="${selectedQuizId}">
         </div>
 
         <div class="row mb-3">

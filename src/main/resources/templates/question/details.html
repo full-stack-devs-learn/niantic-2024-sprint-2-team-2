@@ -29,9 +29,10 @@
             </tr>
         </table>
     </section>
-    <section class="container mt-4">
+    <section class="container mt-5">
         <h2>Answers</h2>
-        <table>
+        <a class="btn btn-primary" th:href="@{|/question/${question.questionId}/answer/add|}">+ Add Answer</a>
+        <table class="table table-light align-middle">
             <tr th:each="answer:${answers}">
                 <td th:text="${answer.answerId}"></td>
                 <td th:text="${answer.answerText}"></td>
@@ -44,9 +45,6 @@
                 </td>
             </tr>
         </table>
-        <div>
-            <a class="btn btn-primary" th:href="@{|/question/${question.questionId}/answer/add|}">Add Answer</a>
-        </div>
     </section>
 </main>
 </body>
