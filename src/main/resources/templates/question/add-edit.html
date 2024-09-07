@@ -14,7 +14,7 @@
     </div>
     <form id="add-question" method="post" th:object="${question}" novalidate th:class="${isInvalid} ? 'was-validated' : ''">
         <div class="form-group">
-            <select class="form-select" th:field="*{quizId}">
+            <select name="quiz" class="form-select" th:field="*{quizId}">
                 <option th:each="quiz:${quizzes}" th:value="${quiz.quizId}" th:text="${quiz.title}">
                 </option>
             </select>
@@ -22,12 +22,14 @@
 
         <div class="form-group">
             <label th:for="*{questionNumber}">Question number</label>
-            <input th:field="*{questionNumber}" type="number">
+            <input th:field="*{questionNumber}" type="number" min="1">
+            <div class="invalid-feedback">Please enter a number greater than 0.</div>
         </div>
 
         <div class="form-group">
             <label th:for="*{questionText}">Question text</label>
-            <input th:field="*{questionText}" type="text">
+            <input th:field="*{questionText}" type="text" required>
+            <div class="invalid-feedback">Please enter the question text.</div>
         </div>
 
         <button type="submit" value="Save">Submit</button>

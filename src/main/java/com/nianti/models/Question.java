@@ -1,12 +1,19 @@
 package com.nianti.models;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+
 import java.util.ArrayList;
 
 public class Question
 {
     private int questionId;
     private int quizId;
+
+    @Min(value = 1, message="Question number must be greater than 0")
     private int questionNumber;
+
+    @NotEmpty(message="Question text is required")
     private String questionText;
 
     private ArrayList<Answer> answers = new ArrayList<>();

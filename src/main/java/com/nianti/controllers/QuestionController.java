@@ -4,9 +4,11 @@ import com.nianti.models.Question;
 import com.nianti.services.QuestionDao;
 import com.nianti.services.AnswerDao;
 import com.nianti.services.QuizDao;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +43,8 @@ public class QuestionController
     public String addQuestion(Model model)
     {
         var quizzes = quizDao.getAllQuizzes();
-        model. addAttribute("question", new Question());
+
+        model.addAttribute("question", new Question());
         model.addAttribute("quizzes", quizzes);
         model.addAttribute("action", "add");
 
@@ -49,16 +52,26 @@ public class QuestionController
     }
 
     @PostMapping("/questions/add")
-    public String addQuestion(Model model, @ModelAttribute("question") Question question)
+    public String addQuestion(Model model, @Valid @ModelAttribute("question") Question question, BindingResult result)
     {
+        if(result.hasErrors())
+        {
+            var quizzes = quizDao.getAllQuizzes();
+            model.addAttribute("quizzes", quizzes);
+            model.addAttribute("isInvalid", true);
+            model.addAttribute("action", "add");
+            return "question/add-edit";
+        }
+
         questionDao.addQuestion(question);
-        return "redirect:/questions";
+        return "redirect:/quizzes";
     }
 
     @GetMapping("/questions/{questionId}/edit")
     public String editQuestion(Model model, @PathVariable int questionId)
     {
         var question = questionDao.getQuestionById(questionId);
+        var quizzes = quizDao.getAllQuizzes();
 
         if(question == null)
         {
@@ -66,15 +79,24 @@ public class QuestionController
         }
 
         model.addAttribute("question", question);
+        model.addAttribute("quizzes", quizzes);
         return "question/add-edit";
     }
 
     @PostMapping("/questions/{questionId}/edit")
-    public String editQuestion(@ModelAttribute("question") Question question, @PathVariable int questionId)
+    public String editQuestion(Model model, @Valid @ModelAttribute("question") Question question, BindingResult result, @PathVariable int questionId)
     {
+        if(result.hasErrors())
+        {
+            var quizzes = quizDao.getAllQuizzes();
+            model.addAttribute("quizzes", quizzes);
+            model.addAttribute("isInvalid", true);
+            model.addAttribute("action", "edit");
+            return "question/add-edit";
+        }
         question.setQuestionId(questionId);
         questionDao.updateQuestion(question);
-        return "redirect:/questions";
+        return "redirect:/quizzes";
     }
 
     @GetMapping("/questions/{questionId}/delete")
@@ -95,6 +117,6 @@ public class QuestionController
     public String deleteQuestion(@PathVariable int questionId)
     {
         questionDao.deleteQuestion(questionId);
-        return "redirect:/questions";
+        return "redirect:/quizzes";
     }
 }

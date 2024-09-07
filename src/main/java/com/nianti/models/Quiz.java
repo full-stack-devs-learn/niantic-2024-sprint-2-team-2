@@ -9,7 +9,7 @@ public class Quiz
 {
     private int quizId;
 
-    @NotBlank(message="Quiz title is required")
+    @NotEmpty(message="Quiz title is required")
     private String title;
 
     private boolean isLive;
