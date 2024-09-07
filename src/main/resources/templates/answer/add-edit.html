@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/head :: head"></div>
+
+<body>
+<!--<script src="/js/answer-add.js"></script>-->
+<div th:replace="fragments/navigation :: nav"></div>
+
+<div class="container mt-4">
+    <div>
+        <h1 th:if="${action} =='add'">Add Answer</h1>
+        <h1 th:if="${action} =='edit'">Edit Answer</h1>
+    </div>
+    <form id="add-answer" method="post" th:object="${answer}" novalidate th:class="${isInvalid} ? 'was-validated' : ''">
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" th:for="*{answerText}">Question</label>
+            <p th:text="${questionText}" class="col-sm-10"></p>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" th:for="*{answerText}">Answer</label>
+            <input th:field="*{answerText}" type="text" id="answer-text" class="col-sm-10">
+            <div class="invalid-feedback">Please input an answer.</div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" th:for="*{correct}">Correct Answer</label>
+            <input th:field="*{correct}" type="checkbox" id="correct-checkbox" class="col-sm-10">
+            <div class="invalid-feedback">A correct answer already exists. Only 1 correct answer is allowed per question.</div>
+        </div>
+
+        <button type="submit" value="Save">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>
