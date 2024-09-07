@@ -23,6 +23,7 @@
     </section>
     <section class="container mt-4">
         <h2>All Questions</h2>
+        <a class="btn btn-primary" >Add Question</a>
         <table>
             <tr th:each="question:${questions}">
                 <td th:text="${question.questionNumber}"></td>

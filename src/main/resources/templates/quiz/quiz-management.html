@@ -8,13 +8,14 @@
 <div th:replace="fragments/navigation :: nav"></div>
 
 <div class="container mt-4">
-    <h1>Quiz Management</h1>
+    <h1>Manage Quizzes</h1>
     <a href="/quizzes/add"><button>Add Quiz</button></a>
 
     <div class="d-flex my-3 gap-3">
         <div class="card" th:each="quiz:${quizzes}" style="width: 18rem;">
             <div class="card-header" th:text="${quiz.title}"></div>
             <div class="card-body">
+                <a th:href="@{|/quizzes/${quiz.quizId}/details|}" class="btn btn-primary">View Questions</a>
                 <a th:href="@{|/quizzes/${quiz.quizId}/edit|}" class="btn btn-secondary">Edit</a>
                 <a th:href="@{|/quizzes/${quiz.quizId}/delete|}" class="btn btn-danger">Delete</a>
             </div>
