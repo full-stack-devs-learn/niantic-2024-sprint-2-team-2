@@ -67,12 +67,12 @@ public class QuizController
     }
 
     @PostMapping("/quiz/{quizId}/edit")
-    public String editQuiz(Model model, @Valid @ModelAttribute("quiz") Quiz quiz, @PathVariable int quizId, BindingResult result)
+    public String editQuiz(Model model, @Valid @ModelAttribute("quiz") Quiz quiz, BindingResult result, @PathVariable int quizId)
     {
         if(result.hasErrors())
         {
             model.addAttribute("isInvalid", true);
-            return "/quiz/add-edit";
+            return "quiz/add-edit";
         }
 
         quiz.setQuizId(quizId);
