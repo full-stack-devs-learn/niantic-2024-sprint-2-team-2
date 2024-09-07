@@ -39,6 +39,24 @@ public class QuestionController
         return "quiz/fragments/quiz-questions";
     }
 
+    @GetMapping("questions/{questionId}")
+    public String questionDetails(Model model, @PathVariable int questionId)
+    {
+        var question = questionDao.getQuestionById(questionId);
+
+        if(question == null)
+        {
+            return "404";
+        }
+
+        var answers = answerDao.getAnswersByQuestionId(questionId);
+
+        model.addAttribute("question", question);
+        model.addAttribute("answers", answers);
+
+        return "question/details";
+    }
+
     @GetMapping("/questions/add")
     public String addQuestion(Model model)
     {
