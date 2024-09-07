@@ -64,5 +64,37 @@ public class QuestionController
         {
             return "404";
         }
+
+        model.addAttribute("question", question);
+        return "question/add-edit";
+    }
+
+    @PostMapping("/questions/{questionId}/edit")
+    public String editQuestion(@ModelAttribute("question") Question question, @PathVariable int questionId)
+    {
+        question.setQuestionId(questionId);
+        questionDao.updateQuestion(question);
+        return "redirect:/questions";
+    }
+
+    @GetMapping("/questions/{questionId}/delete")
+    public String deleteQuestion(Model model, @PathVariable int questionId)
+    {
+        var question = questionDao.getQuestionById(questionId);
+
+        if (question == null)
+        {
+            return "404";
+        }
+
+        model.addAttribute("question", question);
+        return "question/delete";
+    }
+
+    @PostMapping("/questions/{questionId}/delete")
+    public String deleteQuestion(@PathVariable int questionId)
+    {
+        questionDao.deleteQuestion(questionId);
+        return "redirect:/questions";
     }
 }

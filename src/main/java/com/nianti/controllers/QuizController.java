@@ -1,6 +1,7 @@
 package com.nianti.controllers;
 
 import com.nianti.models.Quiz;
+import com.nianti.services.QuestionDao;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ public class QuizController
 {
     @Autowired
     private QuizDao quizDao;
+
+    @Autowired
+    private QuestionDao questionDao;
 
     @GetMapping("/quizzes/{quizId}")
     public String quiz(Model model, @PathVariable int quizId)
@@ -33,6 +37,24 @@ public class QuizController
         model.addAttribute("quizzes", quizzes);
 
         return "quiz/quiz-management";
+    }
+
+    @GetMapping("/quizzes/{quizId}/details")
+    public String getQuizDetails(Model model, @PathVariable int quizId)
+    {
+        var quiz = quizDao.getQuizById(quizId);
+
+        if(quiz == null)
+        {
+            return "404";
+        }
+
+        var questions = questionDao.getAllQuestionsByQuizId(quizId);
+
+        model.addAttribute("quiz", quiz);
+        model.addAttribute("questions", questions);
+
+        return "quiz/details";
     }
 
     @GetMapping("/quizzes/add")
@@ -99,14 +121,7 @@ public class QuizController
     @PostMapping("/quizzes/{quizId}/delete")
     public String deleteQuizConfirm(@PathVariable int quizId)
     {
-        var quiz = quizDao.getQuizById(quizId);
-
-        if (quiz == null)
-        {
-            return "404";
-        }
         quizDao.deleteQuiz(quizId);
-
         return "redirect:/quizzes";
     }
 }

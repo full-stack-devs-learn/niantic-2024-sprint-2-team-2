@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/head :: head"></div>
+
+<body>
+
+<div th:replace="fragments/navigation :: nav"></div>
+
+<div class="container mt-4">
+    <div>
+        <h1>Delete Question</h1>
+        <h2>You are about to delete the following question.</h2>
+    </div>
+    <table class="table">
+        <tr>
+            <th>Question Id</th>
+            <td th:text="${question.questionId}"></td>
+        </tr>
+        <tr>
+            <th>Quiz Id</th>
+            <td th:text="${question.quizId}"></td>
+        </tr>
+        <tr>
+            <th>Question number</th>
+            <td th:text="${question.questionNumber}"></td>
+        </tr>
+        <tr>
+            <th>Question text</th>
+            <td th:text="${question.questionText}"></td>
+        </tr>
+    </table>
+
+    <form method="post">
+        <button type="submit" value="delete" class="btn btn-danger">Delete</button>
+        <a href="/questions" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+</body>
+</html>

@@ -14,14 +14,20 @@
     </div>
     <form id="add-question" method="post" th:object="${question}" novalidate th:class="${isInvalid} ? 'was-validated' : ''">
         <div class="form-group">
-            <label th:for="*{title}">Quiz Title</label>
-            <input th:field="*{title}" type="text" id="title" required>
-            <div class="invalid-feedback">Please enter a quiz title.</div>
+            <select class="form-select" th:field="*{quizId}">
+                <option th:each="quiz:${quizzes}" th:value="${quiz.quizId}" th:text="${quiz.title}">
+                </option>
+            </select>
         </div>
 
-        <div class="form-check">
-            <input class="form-check-input" th:checked="*{live}" type="checkbox" th:field="*{live}">
-            <label class="form-check-label" th:for="*{live}">Make quiz live?</label>
+        <div class="form-group">
+            <label th:for="*{questionNumber}">Question number</label>
+            <input th:field="*{questionNumber}" type="number">
+        </div>
+
+        <div class="form-group">
+            <label th:for="*{questionText}">Question text</label>
+            <input th:field="*{questionText}" type="text">
         </div>
 
         <button type="submit" value="Save">Submit</button>

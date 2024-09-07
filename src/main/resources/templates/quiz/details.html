@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/head :: head"></div>
+
+<body>
+<script src="/js/question-add.js"></script>
+<div th:replace="fragments/navigation :: nav"></div>
+<main>
+    <section class="container mt-4">
+        <h1>Quiz Details</h1>
+
+        <table class="table">
+            <tr>
+                <th>Quiz Id</th>
+                <td th:text="${quiz.quizId}"></td>
+            </tr>
+            <tr>
+                <th>Quiz Title</th>
+                <td th:text="${quiz.title}"></td>
+            </tr>
+        </table>
+    </section>
+    <section class="container mt-4">
+        <h2>All Questions</h2>
+        <table>
+            <tr th:each="question:${questions}">
+                <td th:text="${question.questionNumber}"></td>
+                <td><a th:href="@{|/questions/${question.questionId}|}" th:text="${question.questionText}"></td>
+                <td>
+                    <a th:href="@{|/questions/${question.questionId}/edit|}" class="btn btn-primary">Edit</a>
+                    <a th:href="@{|/questions/${question.questionId}/delete|}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </section>
+</main>
+</body>
+</html>
