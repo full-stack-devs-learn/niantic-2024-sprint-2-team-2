@@ -103,15 +103,16 @@ public class AnswerController
     public String deleteAnswer(Model model, @PathVariable int answerId)
     {
         var answer = answerDao.getAnswerById(answerId);
-        var answerText = answer.getAnswerText();
-        var questionId = answer.getQuestionId();
-        var question = questionDao.getQuestionById(questionId);
-        var quizId = question.getQuizId();
 
         if(answer == null)
         {
             return "404";
         }
+
+        var answerText = answer.getAnswerText();
+        var questionId = answer.getQuestionId();
+        var question = questionDao.getQuestionById(questionId);
+        var quizId = question.getQuizId();
 
         model.addAttribute("answerText", answerText);
         model.addAttribute("question", question);
