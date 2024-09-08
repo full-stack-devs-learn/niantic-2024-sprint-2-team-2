@@ -15,24 +15,24 @@
     <form id="add-answer" method="post" th:object="${answer}" novalidate th:class="${isInvalid} ? 'was-validated' : ''">
 
         <div class="row mb-3">
-            <label class="col-sm-2 col-form-label" th:for="*{answerText}">Question</label>
-            <input type="number" hidden th:name="question-id" th:id="question-id" th:value="${selectedQuestionId}">
+            <label class="col-sm-2 col-form-label" th:for="question-id">Question</label>
+            <input type="number" class="hide" th:name="question-id" th:id="question-id" th:value="${selectedQuestionId}">
             <p th:text="${questionText}" class="col-sm-10"></p>
         </div>
 
         <div class="row mb-3">
-            <label class="col-sm-2 col-form-label" th:for="*{answerText}">Answer</label>
+            <label class="col-sm-2 col-form-label" th:for="answer-text">Answer</label>
             <input th:field="*{answerText}" type="text" id="answer-text" class="col-sm-10" required>
             <div class="invalid-feedback">Required field. Please input an answer.</div>
         </div>
 
         <div class="row mb-3">
-            <label class="col-sm-2 col-form-label" th:for="*{correct}">Correct Answer</label>
+            <label class="col-sm-2 col-form-label" th:for="correct-checkbox">Correct Answer</label>
             <input th:field="*{correct}" type="checkbox" id="correct-checkbox" class="col-sm-10">
-            <div class="invalid-feedback">A correct answer already exists. Only 1 correct answer is allowed per question.</div>
+            <div class="invalid-feedback" id="invalid-correct">A correct answer already exists. Only 1 correct answer is allowed per question.</div>
         </div>
 
-        <button type="submit" value="Save" class="btn btn-primary">Submit</button>
+        <button th:value="${answer.questionId}" type="submit" value="Save" class="btn btn-primary" id="submit-btn">Submit</button>
     </form>
 </div>
 
