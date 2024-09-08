@@ -4,5 +4,6 @@
         <input class="form-check-input" th:id="${answer.answerId}" name="answer" type="radio" th:value="${answer.isCorrect}" required>
         <label class="form-check-label" th:for="${answer.answerId}" th:text="${answer.answerText}">
     </div>
-    <button class="btn btn-primary mt-3" id="next-btn" type="submit">Next</button>
+    <button class="btn btn-primary mt-3 hide" id="prev-btn" type="submit" value="prev">< Prev</button>
+    <button class="btn btn-primary mt-3" id="next-btn" type="submit" value="next">Next ></button>
 </form>

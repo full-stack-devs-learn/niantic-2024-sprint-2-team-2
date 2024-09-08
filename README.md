@@ -20,29 +20,39 @@ This is a two-day pair programming sprint project created by Eri and Chin.
 ### Modify quiz contents
 
 ## Instructions
-### Prerequisites
+### Setup
+#### Prerequisites
 Before you begin, ensure that you have the following installed on your system:
 - JDK
 - Maven
 - Text editor or IDE such as [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
-### Clone this repository
+#### Clone this repository
 ```
 git clone https://github.com/full-stack-devs-learn/niantic-2024-sprint-2-team-2.git
 cd niantic-2024-sprint-2-team-2
 ```
 
-### Initialize the database
+#### Initialize the database
 Run the `trivio-db.sql` database script in the `database` folder to create your database in your local MySQL connection.
 
-### Run and access the application
+#### Run and access the application
 From your text editor or IDE, build and run the application. After that, you can go to your web browser and navigate to the following URL:
 ```
 http://localhost:8080
 ```
 
-### Additional configuration
+#### Additional configuration
 You can change the port on which the application runs by editing the `src/main/resources/application.properties` file. Feel free to explore the codebase and make any desired changes to suit your needs. If you have any questions or issues during the installation process, please feel free to open an issue or contact the project maintainers.
+
+### How to use the website
+The home page shows all of your live quizzes.
+
+If you wish to add or edit an existing quiz, go to "Manage Quizzes". Here, you can see all live and un-live quizzes.
+
+Questions can be added through each Quiz Details page.
+
+Answers can be added from their respective questions.
 
 ## Development process
 We used Trello's kanban board to manage our project progress. High priority tasks were given red labels. Below is a screenshot of our kanban board at an earlier stage in the project.
@@ -65,6 +75,7 @@ TODO, once we have the app complete.
 
 ## Challenges
 ### Challenge 1
+Partial page loading
 
 ### Challenge 2
 

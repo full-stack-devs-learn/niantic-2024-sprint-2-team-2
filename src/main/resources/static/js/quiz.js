@@ -1,7 +1,9 @@
 let questionNumber = 1;
 let score = 0;
 let numberOfQuestions = 0;
+let correctChoices;
 let quizId;
+let totalScore;
 
 document.addEventListener("DOMContentLoaded", () => {
     startQuiz();
@@ -18,6 +20,17 @@ function startQuiz()
     }) 
 }
 
+function getQuestionCount()
+{
+    const url = `/api/quizzes/${quizId}`;
+
+    fetch(url).then(response => response.text())
+              .then(data => { 
+                numberOfQuestions = +data;
+                correctChoices = Array(numberOfQuestions);
+                loadQuestion();})
+}
+
 function loadQuestion()
 {
     const url = `/quizzes/${quizId}/${questionNumber}`;
@@ -31,6 +44,8 @@ function loadQuestion()
     throw new Error(response);
     }).then(data => {
         quizContainer.innerHTML = data;
+        navigateQuestions();
+        displayPrevButton();
         isItSubmittable();
         evaluateAnswer();
     }).catch(error => {
@@ -48,23 +63,44 @@ function evaluateAnswer()
 
         if (selection == 'true')
         {
-            score++;
+            correctChoices[questionNumber - 1] = 1;
         }
-
-        questionNumber++;
+        else
+        {
+            correctChoices[questionNumber - 1] = 0;
+        }
+        
         loadQuestion();
 
     })
 }
 
-function getQuestionCount()
+function displayPrevButton()
 {
-    const url = `/api/quizzes/${quizId}`;
+    const prevButton = document.getElementById("prev-btn");
+    
+    if(questionNumber > 1)
+    {
+        prevButton.classList.remove("hide");
+    }
+}
 
-    fetch(url).then(response => response.text())
-              .then(data => { 
-                numberOfQuestions = +data;
-                loadQuestion();})
+function navigateQuestions()
+{
+    const form = document.getElementById("quiz-form");
+
+    form.addEventListener("submit", (event) => {
+        const whichDirection = event.submitter.value;
+
+        if(whichDirection == 'prev')
+        {
+            questionNumber--;
+        }
+        else if(whichDirection == 'next')
+        {
+            questionNumber++;
+        }
+    })
 }
 
 function isItSubmittable()
@@ -74,8 +110,17 @@ function isItSubmittable()
         const nextButton = document.getElementById("next-btn");
         nextButton.textContent = "Submit";
 
-        nextButton.addEventListener("click", () => displayFinalScore());
+        nextButton.addEventListener("click", () => calculateScore());
     }
+}
+
+function calculateScore()
+{
+    totalScore = correctChoices.reduce(
+        (accum, curr) => accum + curr, 0
+    );
+
+    displayFinalScore();
 }
 
 function displayFinalScore()
@@ -87,6 +132,6 @@ function displayFinalScore()
     scoreContainer.classList.remove("hide");
 
     const scoreDiv = document.getElementById("score");
-    score = score/numberOfQuestions * 100;
-    scoreDiv.innerHTML = "%" + Math.round(score);
+    totalScore = totalScore/numberOfQuestions * 100;
+    scoreDiv.innerHTML = "%" + Math.round(totalScore);
 }
