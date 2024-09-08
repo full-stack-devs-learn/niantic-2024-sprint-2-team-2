@@ -50,6 +50,30 @@ public class AnswerDao
         return answers;
     }
 
+    public Answer getAnswerById(int answerId)
+    {
+        String sql = """
+                SELECT answer_id
+                    , question_id
+                    , answer_text
+                    , is_correct
+                FROM answer
+                WHERE answer_id = ?;
+                """;
+
+        var row = jdbcTemplate.queryForRowSet(sql, answerId);
+
+        while(row.next())
+        {
+            int questionId = row.getInt("question_id");
+            String answerText = row.getString("answer_text");
+            Boolean isCorrect = row.getBoolean("is_correct");
+
+            return new Answer(answerId, questionId, answerText, isCorrect);
+        }
+        return null;
+    }
+
     public List<Answer> getAnswersByQuestionId(int questionId)
     {
         ArrayList<Answer> answers = new ArrayList<>();
@@ -109,7 +133,7 @@ public class AnswerDao
     public void addAnswer(Answer answer)
     {
         String sql = """
-                INSERT INTO quiz (question_id, answer_text, is_correct)
+                INSERT INTO answer (question_id, answer_text, is_correct)
                 VALUES (?, ?, ?)
                 """;
 
@@ -122,14 +146,13 @@ public class AnswerDao
     public void updateAnswer(Answer answer)
     {
         String sql = """
-                SET question_id = ?
-                    , answer_text = ?
+                UPDATE answer
+                SET answer_text = ?
                     , is_correct = ?
                 WHERE answer_id = ?;
                 """;
 
         jdbcTemplate.update(sql,
-                answer.getQuestionId(),
                 answer.getAnswerText(),
                 answer.isCorrect(),
                 answer.getAnswerId());
