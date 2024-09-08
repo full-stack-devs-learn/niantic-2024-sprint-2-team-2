@@ -133,5 +133,5 @@ function displayFinalScore()
 
     const scoreDiv = document.getElementById("score");
     totalScore = totalScore/numberOfQuestions * 100;
-    scoreDiv.innerHTML = "%" + Math.round(totalScore);
+    scoreDiv.innerHTML = Math.round(totalScore) + "%";
 }

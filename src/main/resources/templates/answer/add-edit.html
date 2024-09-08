@@ -29,7 +29,7 @@
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label" th:for="correct-checkbox">Correct Answer</label>
             <input th:field="*{correct}" type="checkbox" id="correct-checkbox" class="col-sm-10">
-            <p class="hide col-sm-10" id="checkbox-message" style="color: red">A correct answer already exists. Only 1 correct answer is allowed per question.</p>
+            <p class="hide col-sm-10" id="checkbox-message" style="color: red">"Checkbox disabled because a correct answer already exists. Only 1 correct answer allowed per question."</p>
         </div>
 
         <button th:value="${answer.questionId}" type="submit" value="Save" class="btn btn-primary" id="submit-btn">Submit</button>
