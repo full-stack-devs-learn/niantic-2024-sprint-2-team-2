@@ -5,6 +5,7 @@ import com.nianti.models.Question;
 import com.nianti.services.AnswerDao;
 import com.nianti.services.QuestionDao;
 import com.nianti.services.QuizDao;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,24 +41,22 @@ public class AnswerController
     }
 
     @PostMapping("/questions/{questionId}/answers/add")
-    public String addAnswer(Model model, @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int questionId)
+    public String addAnswer(Model model, @Valid @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int questionId)
     {
         if(result.hasErrors())
         {
             var question = questionDao.getQuestionById(questionId);
-            var quizId = questionDao.getQuizId(questionId);
+            var questionText = questionDao.getQuestionText(questionId);
 
             model.addAttribute("question", question);
+            model.addAttribute("questionText", questionText);
             model.addAttribute("selectedQuestionId", questionId);
             model.addAttribute("isInvalid", true);
             model.addAttribute("action", "add");
             return "answer/add-edit";
-
         }
-
         answerDao.addAnswer(answer);
         return "redirect:/quizzes";
-//        return "redirect:/quizzes/{quizId}/questions/{questionId}";
     }
 
     @GetMapping("/answers/{answerId}/edit")

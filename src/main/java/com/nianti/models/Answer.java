@@ -1,10 +1,16 @@
 package com.nianti.models;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class Answer
 {
     private int answerId;
+
     private int questionId;
+
+    @NotEmpty(message="Answer input is required")
     private String answerText;
+
     private boolean isCorrect;
 
     public Answer()
