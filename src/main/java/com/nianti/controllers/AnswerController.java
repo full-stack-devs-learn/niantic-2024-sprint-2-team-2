@@ -63,24 +63,33 @@ public class AnswerController
     public String editAnswer(Model model, @PathVariable int answerId)
     {
         var answer = answerDao.getAnswerById(answerId);
+        var questionId = answer.getQuestionId();
+        var questionText = questionDao.getQuestionText(questionId);
 
         if(answer == null)
         {
             return "404";
         }
 
+        model.addAttribute("questionId", questionId);
+        model.addAttribute("questionText", questionText);
         model.addAttribute("answer", answer);
         model.addAttribute("action", "edit");
         return "answer/add-edit";
     }
 
     @PostMapping("/answers/{answerId}/edit")
-    public String editAnswer(Model model, @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int answerId)
+    public String editAnswer(Model model, @Valid @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int answerId)
     {
         if(result.hasErrors())
         {
             var selectedAnswer = answerDao.getAnswerById(answerId);
+            var questionId = selectedAnswer.getQuestionId();
+            var questionText = questionDao.getQuestionText(questionId);
+
             model.addAttribute("selectedAnswer", selectedAnswer);
+            model.addAttribute("questionId", questionId);
+            model.addAttribute("questionText", questionText);
             model.addAttribute("isInvalid", true);
             model.addAttribute("action", "edit");
             return "answer/add-edit";
