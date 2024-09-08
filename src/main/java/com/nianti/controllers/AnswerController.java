@@ -64,13 +64,14 @@ public class AnswerController
     public String editAnswer(Model model, @PathVariable int answerId)
     {
         var answer = answerDao.getAnswerById(answerId);
-        var questionId = answer.getQuestionId();
-        var questionText = questionDao.getQuestionText(questionId);
 
         if(answer == null)
         {
             return "404";
         }
+
+        var questionId = answer.getQuestionId();
+        var questionText = questionDao.getQuestionText(questionId);
 
         model.addAttribute("questionId", questionId);
         model.addAttribute("questionText", questionText);
