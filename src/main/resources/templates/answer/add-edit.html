@@ -16,6 +16,7 @@
 
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label" th:for="*{answerText}">Question</label>
+            <input type="number" hidden th:name="question-id" th:id="question-id" th:value="${selectedQuestionId}">
             <p th:text="${questionText}" class="col-sm-10"></p>
         </div>
 
