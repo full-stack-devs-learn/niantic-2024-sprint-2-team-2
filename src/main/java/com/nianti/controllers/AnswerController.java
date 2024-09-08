@@ -4,11 +4,17 @@ import com.nianti.models.Answer;
 import com.nianti.models.Question;
 import com.nianti.services.AnswerDao;
 import com.nianti.services.QuestionDao;
+import com.nianti.services.QuizDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.naming.Binding;
 
 @Controller
 public class AnswerController
@@ -18,15 +24,6 @@ public class AnswerController
 
     @Autowired
     private AnswerDao answerDao;
-//
-//    @GetMapping("/quizzes/{quizId}/{questionId}")
-//    public String answersByQuestionId(Model model, @PathVariable int quizId, @PathVariable int questionId)
-//    {
-//        var answers = answerDao.getAnswersByQuestionId(questionId);
-//
-//        model.addAttribute("answers", answers);
-//        return "quiz/fragments/answers-list";
-//    }
 
     @GetMapping("/questions/{questionId}/answers/add")
     public String addAnswer(Model model, @PathVariable int questionId)
@@ -40,5 +37,77 @@ public class AnswerController
         model.addAttribute("action", "add");
 
         return "answer/add-edit";
+    }
+
+    @PostMapping("/questions/{questionId}/answers/add")
+    public String addAnswer(Model model, @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int questionId)
+    {
+        if(result.hasErrors())
+        {
+            var question = questionDao.getQuestionById(questionId);
+            var quizId = questionDao.getQuizId(questionId);
+
+            model.addAttribute("question", question);
+            model.addAttribute("selectedQuestionId", questionId);
+            model.addAttribute("isInvalid", true);
+            model.addAttribute("action", "add");
+            return "answer/add-edit";
+
+        }
+
+        answerDao.addAnswer(answer);
+        return "redirect:/quizzes";
+//        return "redirect:/quizzes/{quizId}/questions/{questionId}";
+    }
+
+    @GetMapping("/answers/{answerId}/edit")
+    public String editAnswer(Model model, @PathVariable int answerId)
+    {
+        var answer = answerDao.getAnswerById(answerId);
+
+        if(answer == null)
+        {
+            return "404";
+        }
+
+        model.addAttribute("answer", answer);
+        model.addAttribute("action", "edit");
+        return "answer/add-edit";
+    }
+
+    @PostMapping("/answers/{answerId}/edit")
+    public String editAnswer(Model model, @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int answerId)
+    {
+        if(result.hasErrors())
+        {
+            var selectedAnswer = answerDao.getAnswerById(answerId);
+            model.addAttribute("selectedAnswer", selectedAnswer);
+            model.addAttribute("isInvalid", true);
+            model.addAttribute("action", "edit");
+            return "answer/add-edit";
+        }
+        answerDao.updateAnswer(answer);
+        return "redirect:/quizzes";
+    }
+
+    @GetMapping("/answers/{answerId}/delete")
+    public String deleteAnswer(Model model, @PathVariable int answerId)
+    {
+        var answer = answerDao.getAnswerById(answerId);
+
+        if(answer == null)
+        {
+            return "404";
+        }
+
+        model.addAttribute("answer", answer);
+        return "answer/delete";
+    }
+
+    @PostMapping("/answers/{answerId}/delete")
+    public  String deleteAnswer(@PathVariable int answerId)
+    {
+        answerDao.deleteAnswer(answerId);
+        return "redirect:quizzes";
     }
 }
