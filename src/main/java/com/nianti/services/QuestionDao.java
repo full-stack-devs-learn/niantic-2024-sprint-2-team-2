@@ -137,6 +137,25 @@ public class QuestionDao
         return null;
     }
 
+    public int getQuizId(int questionId)
+    {
+        String sql = """
+                SELECT quiz_id
+                FROM question
+                WHERE question_id = ?;
+                """;
+
+        var row = jdbcTemplate.queryForRowSet(sql, questionId);
+
+        if(row.next())
+        {
+            int quizId = row.getInt("quiz-id");
+
+            return quizId;
+        }
+        return 0;
+    }
+
     public void addQuestion(Question question)
     {
         String sql = """
