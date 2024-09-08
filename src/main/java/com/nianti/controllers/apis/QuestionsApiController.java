@@ -25,7 +25,6 @@ public class QuestionsApiController
         return count;
     }
 
-    // Check if answer already exists for the question
     @GetMapping("/api/question/{questionId}")
     public int hasCorrectAnswer(@PathVariable int questionId)
     {

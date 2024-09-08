@@ -130,9 +130,8 @@ public class QuestionDao
 
         if(row.next())
         {
-            String questionText = row.getString("question_text");
 
-            return questionText;
+            return row.getString("question_text");
         }
         return null;
     }

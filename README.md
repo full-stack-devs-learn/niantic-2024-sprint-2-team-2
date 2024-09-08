@@ -71,7 +71,7 @@ We diagrammed the database, models, and services so that we could better underst
 ![trivio-dto-diagram](/img/trivio-dto-diagram.png)
 
 **Services**
-TODO, once we have the app complete.
+![trivio-dao-diagram](/img/trivio-dao-diagram.png)
 
 ## Challenges
 ### Challenge 1
