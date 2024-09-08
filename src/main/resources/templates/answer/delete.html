@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="fragments/head :: head"></div>
+
+<body>
+<script src="/js/question-details.js"></script>
+<div th:replace="fragments/navigation :: nav"></div>
+<main>
+    <section class="container mt-4">
+        <h1>Question Details</h1>
+
+        <table class="table">
+            <tr>
+                <th>Question Id</th>
+                <td th:text="${question.questionId}"></td>
+            </tr>
+            <tr>
+                <th>Quiz Id</th>
+                <td th:text="${question.quizId}"></td>
+            </tr>
+            <tr>
+                <th>Question Number</th>
+                <td th:text="${question.questionNumber}"></td>
+            </tr>
+            <tr>
+                <th>Question Text</th>
+                <td th:text="${question.questionText}"></td>
+            </tr>
+        </table>
+    </section>
+    <section class="container mt-5">
+        <h2>Answers</h2>
+        <table class="table table-light align-middle">
+            <tr>
+                <td class="table-warning" id="delete-cancel-btn" th:object="${answer}">
+                    <p style="display:inline">Are you sure you want to delete the answer: <strong th:text="${answerText}"></strong> ?</p>
+                    <form method="post" style="display:inline">
+                        <button type="submit" value="delete" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </section>
+</main>
+</body>
+</html>
