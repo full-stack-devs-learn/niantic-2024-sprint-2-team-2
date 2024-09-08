@@ -102,20 +102,28 @@ public class AnswerController
     public String deleteAnswer(Model model, @PathVariable int answerId)
     {
         var answer = answerDao.getAnswerById(answerId);
+        var answerText = answer.getAnswerText();
+        var questionId = answer.getQuestionId();
+        var question = questionDao.getQuestionById(questionId);
+        var quizId = question.getQuizId();
 
         if(answer == null)
         {
             return "404";
         }
 
+        model.addAttribute("answerText", answerText);
+        model.addAttribute("question", question);
+        model.addAttribute("questionId", questionId);
+        model.addAttribute("quizId", quizId);
         model.addAttribute("answer", answer);
         return "answer/delete";
     }
 
     @PostMapping("/answers/{answerId}/delete")
-    public  String deleteAnswer(@PathVariable int answerId)
+    public String deleteAnswer(@PathVariable int answerId)
     {
         answerDao.deleteAnswer(answerId);
-        return "redirect:quizzes";
+        return "redirect:/quizzes";
     }
 }
