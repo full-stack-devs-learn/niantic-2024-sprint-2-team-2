@@ -41,16 +41,7 @@
                 <td class="answer-info" id="edit-delete-btn">
                     <a th:href="@{|/answers/${answer.answerId}/edit|}" class="btn btn-primary">Edit</a>
                     <!-- Added th:if to hide delete button when answer is correct -->
-                    <a th:if="${answer.isCorrect} == false" class="btn btn-danger" id="delete-btn">Delete</a>
-                </td>
-                <td class="table-warning hide" id="delete-cancel-btn">
-                    <p style="display:inline">Are you sure you want to delete the answer: <strong th:text="${answer.answerText}"></strong> ?</p>
-<!--                    <strong>Are you sure you want to delete:</strong>-->
-<!--                    <strong th:text="${answer.answerText}"></strong>-->
-                    <form method="post" style="display:inline">
-                        <button type="submit" value="delete" class="btn btn-danger">Delete</button>
-                    </form>
-                    <button class="btn btn-outline-primary" id="cancel-btn">Cancel</button>
+                    <a th:if="!${answer.isCorrect}" class="btn btn-danger" id="delete-btn" th:href="@{|/answers/${answer.answerId}/delete|}">Delete</a>
                 </td>
             </tr>
         </table>
