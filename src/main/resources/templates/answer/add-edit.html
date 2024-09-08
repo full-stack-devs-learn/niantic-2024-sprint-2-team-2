@@ -15,8 +15,8 @@
     <form id="add-answer" method="post" th:object="${answer}" novalidate th:class="${isInvalid} ? 'was-validated' : ''">
 
         <div class="row mb-3">
-            <label class="col-sm-2 col-form-label" th:for="question-id">Question</label>
-            <input type="number" class="hide" th:name="question-id" th:id="question-id" th:value="${selectedQuestionId}">
+            <label class="col-sm-2 col-form-label" th:for="*{questionId}">Question</label>
+            <input type="number" class="hide" name="question-id" th:id="question-id" th:value="${selectedQuestionId}">
             <p th:text="${questionText}" class="col-sm-10"></p>
         </div>
 
@@ -29,7 +29,7 @@
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label" th:for="correct-checkbox">Correct Answer</label>
             <input th:field="*{correct}" type="checkbox" id="correct-checkbox" class="col-sm-10">
-            <div class="invalid-feedback" id="invalid-correct">A correct answer already exists. Only 1 correct answer is allowed per question.</div>
+            <p class="hide col-sm-10" id="checkbox-message" style="color: red">A correct answer already exists. Only 1 correct answer is allowed per question.</p>
         </div>
 
         <button th:value="${answer.questionId}" type="submit" value="Save" class="btn btn-primary" id="submit-btn">Submit</button>

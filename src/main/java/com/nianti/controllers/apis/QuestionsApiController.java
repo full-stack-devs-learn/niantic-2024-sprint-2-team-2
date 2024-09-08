@@ -27,20 +27,8 @@ public class QuestionsApiController
 
     // Check if answer already exists for the question
     @GetMapping("/api/question/{questionId}")
-    public Boolean hasCorrectAnswer(@PathVariable int questionId)
+    public int hasCorrectAnswer(@PathVariable int questionId)
     {
-        // Get answers of question id
-        var answers = answerDao.getAnswersByQuestionId(questionId);
-
-        Boolean correctAnswer = false;
-
-        for(Answer answer: answers)
-        {
-            if(answer.isCorrect())
-            {
-                correctAnswer = true;
-            }
-        }
-        return correctAnswer;
+        return answerDao.getCorrectAnswerCount(questionId);
     }
 }

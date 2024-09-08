@@ -103,31 +103,24 @@ public class AnswerDao
         return answers;
     }
 
-    public Answer getCorrectAnswer(int questionId)
+    public int getCorrectAnswerCount(int questionId)
     {
         int correct = 1; // correct answers have a value of 1 in database
 
         String sql = """
-                SELECT answer_id
-                    , question_id
-                    , answer_text
-                    , is_correct
+                SELECT COUNT(is_correct) AS correct_answer_count
                 FROM answer
                 WHERE question_id = ? AND is_correct = ?;
                 """;
 
         var row = jdbcTemplate.queryForRowSet(sql, questionId, correct);
 
-        while(row.next())
+        if(row.next())
         {
-            int answerId = row.getInt("answer_id");
-            String answerText = row.getString("answer_text");
-            Boolean isCorrect = row.getBoolean("is_correct");
-
-            return new Answer(answerId, questionId, answerText, isCorrect);
+            return row.getInt("correct_answer_count");
         }
 
-        return null;
+        return 0;
     }
     
     public void addAnswer(Answer answer)

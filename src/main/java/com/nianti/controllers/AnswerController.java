@@ -34,6 +34,7 @@ public class AnswerController
 
         model.addAttribute("answer", new Answer());
         model.addAttribute("questions", questions);
+        model.addAttribute("selectedQuestionId", questionId);
         model.addAttribute("questionText", questionText);
         model.addAttribute("action", "add");
 
@@ -41,7 +42,7 @@ public class AnswerController
     }
 
     @PostMapping("/questions/{questionId}/answers/add")
-    public String addAnswer(Model model, @Valid @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int questionId)
+    public String addAnswer(Model model, @PathVariable int questionId, @Valid @ModelAttribute("answer") Answer answer, BindingResult result)
     {
         if(result.hasErrors())
         {
