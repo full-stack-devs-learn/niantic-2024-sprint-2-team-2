@@ -4,7 +4,7 @@
 <div th:replace="fragments/head :: head"></div>
 
 <body>
-<!--<script src="/js/answer-add.js"></script>-->
+<script src="/js/answer-add.js"></script>
 <div th:replace="fragments/navigation :: nav"></div>
 
 <div class="container mt-4">
@@ -22,8 +22,8 @@
 
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label" th:for="*{answerText}">Answer</label>
-            <input th:field="*{answerText}" type="text" id="answer-text" class="col-sm-10">
-            <div class="invalid-feedback">Please input an answer.</div>
+            <input th:field="*{answerText}" type="text" id="answer-text" class="col-sm-10" required>
+            <div class="invalid-feedback">Required field. Please input an answer.</div>
         </div>
 
         <div class="row mb-3">
