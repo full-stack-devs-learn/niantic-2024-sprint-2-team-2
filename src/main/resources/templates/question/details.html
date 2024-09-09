@@ -38,11 +38,11 @@
             <tr th:each="answer:${answers}">
                 <td class="answer-info" th:text="${answer.answerId}"></td>
                 <td class="answer-info" th:text="${answer.answerText}"></td>
-                <td class="answer-info" th:if="${answer.isCorrect} == false" th:href="@{|/answers/${answer.isCorrect}|}">incorrect</td>
-                <td class="answer-info" th:if="${answer.isCorrect} == true" th:href="@{|/answers/${answer.isCorrect}|}">correct</td>
+                <td class="answer-info" th:if="${answer.isCorrect} == false">incorrect</td>
+                <td class="answer-info" th:if="${answer.isCorrect} == true">correct</td>
                 <td class="answer-info" id="edit-delete-btn">
-                    <a th:href="@{|/answers/${answer.answerId}/edit|}" class="btn btn-primary">Edit</a>
-                    <a class="btn btn-danger" id="delete-btn" th:href="@{|/answers/${answer.answerId}/delete|}">Delete</a>
+                    <a th:href="@{|/questions/${answer.questionId}/answers/${answer.answerId}/edit|}" class="btn btn-primary">Edit</a>
+                    <a class="btn btn-danger" id="delete-btn" th:href="@{|/questions/${answer.questionId}/answers/${answer.answerId}/delete|}">Delete</a>
                 </td>
             </tr>
         </table>

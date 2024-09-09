@@ -1,10 +1,8 @@
 package com.nianti.controllers;
 
 import com.nianti.models.Answer;
-import com.nianti.models.Question;
 import com.nianti.services.AnswerDao;
 import com.nianti.services.QuestionDao;
-import com.nianti.services.QuizDao;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.naming.Binding;
 
 @Controller
 public class AnswerController
@@ -60,8 +56,8 @@ public class AnswerController
         return "redirect:/quizzes";
     }
 
-    @GetMapping("/answers/{answerId}/edit")
-    public String editAnswer(Model model, @PathVariable int answerId)
+    @GetMapping("/questions/{questionId}/answers/{answerId}/edit")
+    public String editAnswer(Model model, @PathVariable int questionId, @PathVariable int answerId)
     {
         var answer = answerDao.getAnswerById(answerId);
 
@@ -70,27 +66,23 @@ public class AnswerController
             return "404";
         }
 
-        var questionId = answer.getQuestionId();
         var questionText = questionDao.getQuestionText(questionId);
 
-        model.addAttribute("questionId", questionId);
+        model.addAttribute("selectedQuestionId", questionId);
         model.addAttribute("questionText", questionText);
         model.addAttribute("answer", answer);
         model.addAttribute("action", "edit");
         return "answer/add-edit";
     }
 
-    @PostMapping("/answers/{answerId}/edit")
-    public String editAnswer(Model model, @Valid @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int answerId)
+    @PostMapping("/questions/{questionId}/answers/{answerId}/edit")
+    public String editAnswer(Model model, @Valid @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int questionId, @PathVariable int answerId)
     {
         if(result.hasErrors())
         {
-            var selectedAnswer = answerDao.getAnswerById(answerId);
-            var questionId = selectedAnswer.getQuestionId();
             var questionText = questionDao.getQuestionText(questionId);
 
-            model.addAttribute("selectedAnswer", selectedAnswer);
-            model.addAttribute("questionId", questionId);
+            model.addAttribute("selectedQuestionId", questionId);
             model.addAttribute("questionText", questionText);
             model.addAttribute("isInvalid", true);
             model.addAttribute("action", "edit");
@@ -100,8 +92,8 @@ public class AnswerController
         return "redirect:/quizzes";
     }
 
-    @GetMapping("/answers/{answerId}/delete")
-    public String deleteAnswer(Model model, @PathVariable int answerId)
+    @GetMapping("/questions/{questionId}/answers/{answerId}/delete")
+    public String deleteAnswer(Model model, @PathVariable int answerId, @PathVariable int questionId)
     {
         var answer = answerDao.getAnswerById(answerId);
 
@@ -111,7 +103,6 @@ public class AnswerController
         }
 
         var answerText = answer.getAnswerText();
-        var questionId = answer.getQuestionId();
         var question = questionDao.getQuestionById(questionId);
         var quizId = question.getQuizId();
 
@@ -123,8 +114,8 @@ public class AnswerController
         return "answer/delete";
     }
 
-    @PostMapping("/answers/{answerId}/delete")
-    public String deleteAnswer(@PathVariable int answerId)
+    @PostMapping("/questions/{questionId}/answers/{answerId}/delete")
+    public String deleteAnswer(@PathVariable int answerId, @PathVariable int questionId)
     {
         answerDao.deleteAnswer(answerId);
         return "redirect:/quizzes";
