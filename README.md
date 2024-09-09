@@ -3,26 +3,38 @@ A two-day pair programming sprint project! Trivio is a simple web application th
 
 ## Table of Contents
 1. [Description](#description)
-2. [Features](#features)
-3. [Instructions](#instructions)
+2. [Features and how to use](#features-and-how-to-use)
+3. [Setup](#setup)
 4. [Development process](#development-process)
 5. [Challenges](#challenges)
 6. [Retrospective](#retrospective)
 
 ## Description
-Trivio is a simple web application that allows users to take a quiz and create their own quizzes. Built using SpringBoot and Thymeleaf, the application consists of a front-end interface for users to interact with the quiz and a back-end system for managing the quiz questions and answers. Built with Java, Spring Boot, Thymeleaf, HTML, CSS, JavaScript, and Bootstrap, this app offers an interactive and user-friendly way to create and enjoy trivia games. It's perfect for quiz enthusiasts looking to challenge themselves or share custom quizzes with others.
+Trivio is a simple web application that allows users to take a quiz and create their own quizzes. Built using SpringBoot, Thymeleaf, and JavaScript the application consists of a front-end interface for users to interact with the quiz and a back-end system for managing the quiz questions and answers.
 
 This is a two-day pair programming sprint project created by Eri and Chin.
 
-## Features
+## Features and how to use
 ### Take quizzes
-Users can select from a range of trivia quizzes and test their knowledge.
+Users can select from a range of trivia quizzes and test their knowledge. The home page shows all of your live quizzes.
+
+![trivio-home-page](/img/trivio-take-quiz.png)
 
 ### Create new quizzes
-Add your own quizzes with your customized set of questions and answers.
+If you wish to add or edit an existing quiz, go to "Manage Quizzes". Here, you can see all live and un-live quizzes.
+
+![trivio-manage-quizzes](/img/trivio-manage-quizzes.png)
 
 ### Modify quiz contents
 Modify existing quizzes by adding or updating questions and answers.
+
+Questions can be added through each Quiz Details page.
+
+![trivio-questions](/img/trivio-questions.png)
+
+Answers can be added from their respective questions.
+
+![trivio-answers](/img/trivio-answers.png)
 
 ### User-friendly Interface
 The app features an intuitive interface using Bootstrap and CSS.
@@ -30,40 +42,30 @@ The app features an intuitive interface using Bootstrap and CSS.
 ### Validation
 Form validation ensures proper quiz creation and editing, including limiting correct answers to one per question.
 
-## Instructions
-### Setup
-#### Prerequisites
+## Setup
+### Prerequisites
 Before you begin, ensure that you have the following installed on your system:
 - JDK
 - Maven
 - Text editor or IDE such as [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
-#### Clone this repository
+### Clone this repository
 ```
 git clone https://github.com/full-stack-devs-learn/niantic-2024-sprint-2-team-2.git
 cd niantic-2024-sprint-2-team-2
 ```
 
-#### Initialize the database
+### Initialize the database
 Run the `trivio-db.sql` database script in the `database` folder to create your database in your local MySQL connection.
 
-#### Run and access the application
+### Run and access the application
 From your text editor or IDE, build and run the application. After that, you can go to your web browser and navigate to the following URL:
 ```
 http://localhost:8080
 ```
 
-#### Additional configuration
+### Additional configuration
 You can change the port on which the application runs by editing the `src/main/resources/application.properties` file. Feel free to explore the codebase and make any desired changes to suit your needs. If you have any questions or issues during the installation process, please feel free to open an issue or contact the project maintainers.
-
-### How to use the website
-The home page shows all of your live quizzes.
-
-If you wish to add or edit an existing quiz, go to "Manage Quizzes". Here, you can see all live and un-live quizzes.
-
-Questions can be added through each Quiz Details page.
-
-Answers can be added from their respective questions.
 
 ## Development process
 We used Trello's kanban board to manage our project progress. High priority tasks were given red labels. Below is a screenshot of our kanban board at an earlier stage in the project.
@@ -85,10 +87,20 @@ We diagrammed the database, models, and services so that we could better underst
 ![trivio-dao-diagram](/img/trivio-dao-diagram.png)
 
 ## Challenges
-### Challenge 1
-Partial page loading
+### Understanding fetch()
+**Problem:** Our quiz can't proceed to the next question because the Event Listener wasn't listening to the element we indicated.
 
-### Challenge 2
+**Approach:** The console log showed that the form that we're trying to put "addEventListener" on does NOT exist yet at the moment that we try to attach it. I set breakpoints throughout the script file and went line by line, noting what happened at each step. Through this I identified that fetch() started getting our element, but the rest of the script kept running so the Event Listener couldn't attach to the element.
+
+**Solution:** I instead put the event listener inside the "then" clause so that it could properly attach to the element once the response came back. 
+
+### Bug with setting quiz as live/unlive
+**Problem:** At one point, we identified a bug where we were unable to set the value of "isLive" when the user adds/edits a quiz.
+
+**Approach:** We searched the error online on Stack Overflow posts, looked into Thymeleaf documentation, and finally with a big assist from one of our TAs, we realized that the issue was with how we were binding the data. 
+
+**Solution:** Originally, we were using {isLive} in our form, but Thymeleaf was expecting {live} instead, because Thymeleaf automatically adds prepends the word "is" to access the getter and setters. This small change fixed the problem, but it took a lot of research and debugging to get there!
+
 
 ### Code that we're proud of
 #### Eri
@@ -146,20 +158,22 @@ public String editAnswer(Model model, @Valid @ModelAttribute("answer") Answer an
 ```
 
 ## Retrospective
-This project allowed us to further understand how Java, JavaScript, SpringBoot, and Thymeleaf work together to build a full web application.
+This project allowed us to further understand how Java, JavaScript, SpringBoot, and Thymeleaf work together to build a full web application. By building a project from the grounds up, we were able to conceptualize how to send data between different parts of the program to create an interactive application.
 
 ### Things we would do differently
 - Plan out the hierarchy of URLs so that we can structure them and have proper grouping within sections of the website.
+- Better planning from the start for when an API call can make the project more efficient
+- Make wireframes for the interface of the application
 
 ### Things we would do the same
-Clear Documentation
+#### Clear Documentation
 We made sure to maintain our documentation throughout the project, and it definitely paid off. Using diagrams and charts helped us map out the flow and structure of the app, making complex ideas easier to grasp. Our Trello Kanban board kept us organized, on track, and ensured we were prioritizing the right tasks at the right time.
 
-Development Practice
+#### Development Practice
 Pair programming turned out to be a real win for us. Having two minds on the same problem meant we could catch issues early and work through challenges faster. Here’s what made it work:
-- Quick Feedback: We didn’t have to wait for code reviews—we were able to discuss things on the spot and make improvements right away.
-- Skill Sharing: Working closely together helped us learn from each other and level up our skills as we went.
-- Better Productivity: Tackling the project as a team helped us move through tricky parts faster than if we were coding solo.
+- **Quick Feedback:** We didn’t have to wait for code reviews—we were able to discuss things on the spot and make improvements right away.
+- **Skill Sharing:** Working closely together helped us learn from each other and level up our skills as we went.
+- **Better Productivity:** Tackling the project as a team helped us move through tricky parts faster than if we were coding solo.
 
 ### Future Ideas
 - Allow user to edit quizzes, questions, and answers from the same details page without redirecting to a new "adding" screen.
