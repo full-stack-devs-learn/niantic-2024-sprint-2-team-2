@@ -20,6 +20,8 @@ Users can select from a range of trivia quizzes and test their knowledge. The ho
 
 ![trivio-home-page](/img/trivio-take-quiz.png)
 
+![trivio-quiz](/img/trivio-quiz.png)
+
 ### Create new quizzes
 If you wish to add or edit an existing quiz, go to "Manage Quizzes". Here, you can see all live and un-live quizzes.
 
