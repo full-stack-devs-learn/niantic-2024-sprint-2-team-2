@@ -9,7 +9,9 @@
 
 <div class="container mt-4">
     <h1 th:text="${quiz.title}"></h1>
-    <button id="start" th:value="${quiz.quizId}" class="btn btn-primary">Start Quiz</button>
+    <div class="submit-button">
+        <button id="start" th:value="${quiz.quizId}" class="btn btn-primary">Start Quiz</button>
+    </div>
 
     <div id="quiz-container">
         <!-- Questions and answers will be displayed here -->

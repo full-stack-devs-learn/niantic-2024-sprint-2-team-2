@@ -2,7 +2,87 @@
     display: none;
 }
 
-.form-select
-{
+.form-select {
     width: auto !important;
+}
+
+body {
+    background-image: url('https://img.freepik.com/free-photo/watercolor-paper-texture_1194-6496.jpg?t=st=1725838561~exp=1725842161~hmac=1b893315d17f33175eb3ba1373cc3f4e26f2fadee1a7c20ac09555ee9e91ca3a&w=2000');
+}
+
+h1 {
+    margin-top: 5rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+.add-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.add-btn > a {
+    margin: 0 auto;
+}
+
+.submit-button {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.take-quiz {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.manage-quiz {
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    width: 20rem;
+}
+
+.quiz-card {
+    width: 15rem;
+    height: 5.5rem;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    box-shadow: 12px 12px 2px 1px #D3D3D3;
+}
+
+.container-score {
+    display:flex;
+    justify-content: space-evenly;
+    flex-wrap:wrap;
+}
+
+.container-card {
+    display:flex;
+    justify-content: space-evenly;
+    flex-wrap:wrap;
+}
+
+.card-title {
+    width: 100%;
+}
+
+.quiz-card:hover, .add-btn > a:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.quiz-card:hover > a {
+    color: inherit;
+}
+
+a {
+    text-decoration: none;
 }

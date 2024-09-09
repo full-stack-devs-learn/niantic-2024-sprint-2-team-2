@@ -10,7 +10,7 @@
     <section class="container mt-4">
         <h1>Question Details</h1>
 
-        <table class="table">
+        <table class="table table-light table-hover align-middle">
             <tr>
                 <th>Question Id</th>
                 <td th:text="${question.questionId}"></td>
@@ -31,7 +31,7 @@
     </section>
     <section class="container mt-5">
         <h2>Answers</h2>
-        <table class="table table-light align-middle">
+        <table class="table table-light align-middle mt-3">
             <tr>
                 <td class="table-warning" id="delete-cancel-btn" th:object="${answer}">
                     <p style="display:inline">Are you sure you want to delete the answer: <strong th:text="${answerText}"></strong> ?</p>

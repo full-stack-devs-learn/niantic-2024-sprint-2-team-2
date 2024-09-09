@@ -1,9 +1,13 @@
-<p th:text="${question.questionNumber} + '. ' + ${question.questionText}"></p>
-<form id="quiz-form">
-    <div class="form-check" th:each="answer:${answers}">
-        <input class="form-check-input" th:id="${answer.answerId}" name="answer" type="radio" th:value="${answer.isCorrect}" required>
-        <label class="form-check-label" th:for="${answer.answerId}" th:text="${answer.answerText}">
+<div class="card border-primary take-quiz">
+    <h3 class="card-header" th:text="${question.questionNumber} + '. ' + ${question.questionText}"></h3>
+    <div class="card-body">
+    <form id="quiz-form">
+        <div class="form-check" th:each="answer:${answers}">
+            <input class="form-check-input" th:id="${answer.answerId}" name="answer" type="radio" th:value="${answer.isCorrect}" required>
+            <label class="form-check-label" th:for="${answer.answerId}" th:text="${answer.answerText}">
+        </div>
+        <button class="btn btn-primary mt-3 hide" id="prev-btn" type="submit" value="prev">< Prev</button>
+        <button class="btn btn-primary mt-3" id="next-btn" type="submit" value="next">Next ></button>
+    </form>
     </div>
-    <button class="btn btn-primary mt-3 hide" id="prev-btn" type="submit" value="prev">< Prev</button>
-    <button class="btn btn-primary mt-3" id="next-btn" type="submit" value="next">Next ></button>
-</form>
+</div>

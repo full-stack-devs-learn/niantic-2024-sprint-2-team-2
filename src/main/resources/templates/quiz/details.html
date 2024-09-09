@@ -10,7 +10,7 @@
     <section class="container mt-4">
         <h1>Quiz Details</h1>
 
-        <table class="table">
+        <table class="table table-light table-hover align-middle">
             <tr>
                 <th>Quiz Id</th>
                 <td th:text="${quiz.quizId}"></td>
@@ -23,8 +23,10 @@
     </section>
     <section class="container mt-5">
         <h2>All Questions</h2>
-        <a class="btn btn-primary mb-3" th:href="@{|/quizzes/${quiz.quizId}/questions/add|}">+ Add Question</a>
-        <table class="table table-light align-middle">
+        <div class="add-btn">
+            <a class="btn btn-primary mb-3" th:href="@{|/quizzes/${quiz.quizId}/questions/add|}">+ Add Question</a>
+        </div>
+        <table class="table table-light table-hover align-middle mt-3">
             <tr th:each="question:${questions}">
                 <td th:text="${question.questionNumber}"></td>
                 <td><a th:href="@{|/quizzes/${question.quizId}/questions/${question.questionId}|}" th:text="${question.questionText}"></a></td>

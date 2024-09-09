@@ -6,13 +6,19 @@
 <body>
 
 <div th:replace="fragments/navigation :: nav"></div>
-
-<div class="container mt-4">
-    <h1>Live Quizzes</h1>
-    <div class="card mb-2" th:each="quiz:${quizzes}">
-        <a th:href="@{|/quizzes/${quiz.quizId}|}">
-            <div class="card-header" th:text="${quiz.title}"></div>
-        </a>
+    <div class="page-header container">
+        <h1 style="font-size: 5rem">Quizzes</h1>
+    </div>
+<div class="container mt-5" style="display:flex">
+    <div>
+        <img src="/images/quiz-img.png" style="filter: contrast(1.25);">
+    </div>
+    <div class="container mt-4 container-card">
+        <div class="card mb-3 quiz-card"  th:each="quiz:${quizzes}">
+            <a th:href="@{|/quizzes/${quiz.quizId}|}">
+                <h4 class="card-title" th:text="${quiz.title}"></h4>
+            </a>
+        </div>
     </div>
 </div>
 

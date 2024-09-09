@@ -99,50 +99,50 @@ For me, the code that I'm particularly proud of is the loadQuestion() function i
 #### Chin
 The improvement that I was proud of is the code for the Answer Edit page. I wanted to make it easier for users to see which question they were editing the answer for, so I made sure to display the question text along with the existing answer data, rather than just showing the question ID.
 
-In the GetMapping, I retrieve the current answer using answerDao and the related question text using questionDao. By passing both the answer and the question text to the view, users can see exactly which question they’re editing, making the process clearer.
+In the GetMapping, I retrieve the current answer using answerDao and the related question text using questionDao. By passing both the answer and the question text to the view, users can see exactly which question answer they’re editing, making the process clearer.
 The PostMapping handles form validation and updates the answer if no errors occur. If validation fails, I ensure the form reloads with the relevant answer and question information, maintaining a smooth user experience.
 This code improves usability by ensuring users have all the context they need when editing answers, reducing confusion and enhancing the overall experience.
 
 ```java
 @GetMapping("/answers/{answerId}/edit")
-    public String editAnswer(Model model, @PathVariable int answerId)
+public String editAnswer(Model model, @PathVariable int answerId)
+{
+    var answer = answerDao.getAnswerById(answerId);
+
+    if(answer == null)
     {
-        var answer = answerDao.getAnswerById(answerId);
-
-        if(answer == null)
-        {
             return "404";
-        }
+    }
 
-        var questionId = answer.getQuestionId();
+    var questionId = answer.getQuestionId();
+    var questionText = questionDao.getQuestionText(questionId);
+
+    model.addAttribute("questionId", questionId);
+    model.addAttribute("questionText", questionText);
+    model.addAttribute("answer", answer);
+    model.addAttribute("action", "edit");
+    return "answer/add-edit";
+}
+
+@PostMapping("/answers/{answerId}/edit")
+public String editAnswer(Model model, @Valid @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int answerId)
+{
+    if(result.hasErrors())
+    {
+        var selectedAnswer = answerDao.getAnswerById(answerId);
+        var questionId = selectedAnswer.getQuestionId();
         var questionText = questionDao.getQuestionText(questionId);
 
+        model.addAttribute("selectedAnswer", selectedAnswer);
         model.addAttribute("questionId", questionId);
         model.addAttribute("questionText", questionText);
-        model.addAttribute("answer", answer);
+        model.addAttribute("isInvalid", true);
         model.addAttribute("action", "edit");
         return "answer/add-edit";
     }
-
-    @PostMapping("/answers/{answerId}/edit")
-    public String editAnswer(Model model, @Valid @ModelAttribute("answer") Answer answer, BindingResult result, @PathVariable int answerId)
-    {
-        if(result.hasErrors())
-        {
-            var selectedAnswer = answerDao.getAnswerById(answerId);
-            var questionId = selectedAnswer.getQuestionId();
-            var questionText = questionDao.getQuestionText(questionId);
-
-            model.addAttribute("selectedAnswer", selectedAnswer);
-            model.addAttribute("questionId", questionId);
-            model.addAttribute("questionText", questionText);
-            model.addAttribute("isInvalid", true);
-            model.addAttribute("action", "edit");
-            return "answer/add-edit";
-        }
-        answerDao.updateAnswer(answer);
-        return "redirect:/quizzes";
-    }
+    answerDao.updateAnswer(answer);
+    return "redirect:/quizzes";
+}
 ```
 
 ## Retrospective

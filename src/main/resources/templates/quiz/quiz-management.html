@@ -9,11 +9,13 @@
 
 <div class="container mt-4">
     <h1>Manage Quizzes</h1>
-    <a class="btn btn-primary mb-3" href="/quizzes/add">+ Add Quiz</a>
+    <div class="add-btn">
+        <a class="btn btn-primary mb-3" href="/quizzes/add">+ Add Quiz</a>
+    </div>
 
-    <div class="d-flex my-3 gap-3">
-        <div class="card" th:each="quiz:${quizzes}" style="width: 18rem;">
-            <div class="card-header" th:text="${quiz.title}"></div>
+    <div class="container container-card mt-3">
+        <div class="card border-primary manage-quiz mb-3" th:each="quiz:${quizzes}">
+            <div class="card-header card-title" th:text="${quiz.title}"></div>
             <div class="card-body">
                 <a th:href="@{|/quizzes/${quiz.quizId}/details|}" class="btn btn-primary">View Questions</a>
                 <a th:href="@{|/quizzes/${quiz.quizId}/edit|}" class="btn btn-secondary">Edit</a>
