@@ -163,6 +163,7 @@ This project allowed us to further understand how Java, JavaScript, SpringBoot, 
 ### Things we would do differently
 - Plan out the hierarchy of URLs so that we can structure them and have proper grouping within sections of the website.
 - Better planning from the start for when an API call can make the project more efficient
+- Make wireframes for the interface of the application
 
 ### Things we would do the same
 #### Clear Documentation
