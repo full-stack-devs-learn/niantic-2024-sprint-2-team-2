@@ -148,9 +148,8 @@ public class QuestionDao
 
         if(row.next())
         {
-            int quizId = row.getInt("quiz-id");
 
-            return quizId;
+            return row.getInt("quiz_id");
         }
         return 0;
     }

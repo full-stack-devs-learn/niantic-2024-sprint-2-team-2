@@ -87,9 +87,9 @@ public class QuestionController
             model.addAttribute("action", "add");
             return "question/add-edit";
         }
-
         questionDao.addQuestion(question);
-        return "redirect:/quizzes";
+
+        return "redirect:/quizzes/{quizId}/details";
     }
 
     @GetMapping("/questions/{questionId}/edit")
@@ -122,7 +122,8 @@ public class QuestionController
         }
         question.setQuestionId(questionId);
         questionDao.updateQuestion(question);
-        return "redirect:/quizzes";
+        var quizId = questionDao.getQuizId(questionId);
+        return "redirect:/quizzes/" + quizId + "/details";
     }
 
     @GetMapping("/questions/{questionId}/delete")
@@ -142,7 +143,8 @@ public class QuestionController
     @PostMapping("/questions/{questionId}/delete")
     public String deleteQuestion(@PathVariable int questionId)
     {
+        var quizId = questionDao.getQuizId(questionId);
         questionDao.deleteQuestion(questionId);
-        return "redirect:/quizzes";
+        return "redirect:/quizzes/" + quizId + "/details";
     }
 }

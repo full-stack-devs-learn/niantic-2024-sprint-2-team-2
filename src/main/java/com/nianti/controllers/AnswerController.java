@@ -53,7 +53,9 @@ public class AnswerController
             return "answer/add-edit";
         }
         answerDao.addAnswer(answer);
-        return "redirect:/quizzes";
+        var quizId = questionDao.getQuizId(questionId);
+
+        return "redirect:/quizzes/" + quizId + "/questions/{questionId}";
     }
 
     @GetMapping("/questions/{questionId}/answers/{answerId}/edit")
@@ -89,7 +91,9 @@ public class AnswerController
             return "answer/add-edit";
         }
         answerDao.updateAnswer(answer);
-        return "redirect:/quizzes";
+        var quizId = questionDao.getQuizId(questionId);
+
+        return "redirect:/quizzes/" + quizId + "/questions/{questionId}";
     }
 
     @GetMapping("/questions/{questionId}/answers/{answerId}/delete")
@@ -118,6 +122,8 @@ public class AnswerController
     public String deleteAnswer(@PathVariable int answerId, @PathVariable int questionId)
     {
         answerDao.deleteAnswer(answerId);
-        return "redirect:/quizzes";
+        var quizId = questionDao.getQuizId(questionId);
+
+        return "redirect:/quizzes/" + quizId + "/questions/{questionId}";
     }
 }
