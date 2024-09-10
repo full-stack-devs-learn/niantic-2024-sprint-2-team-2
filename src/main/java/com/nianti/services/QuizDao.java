@@ -122,11 +122,26 @@ public class QuizDao
 
     public void deleteQuiz(int quizId)
     {
-        String sql = """
+        String sqlDeleteAnswers = """
+                DELETE answer
+                FROM answer
+                INNER JOIN question
+                ON answer.question_id = question.question_id
+                WHERE quiz_id = ?;
+                """;
+
+        String sqlDeleteQuestions = """
+                DELETE FROM question
+                WHERE quiz_id = ?;
+                """;
+
+        String sqlDeleteQuiz = """
                 DELETE FROM quiz
                 WHERE quiz_id = ?;
                 """;
 
-        jdbcTemplate.update(sql, quizId);
+        jdbcTemplate.update(sqlDeleteAnswers, quizId);
+        jdbcTemplate.update(sqlDeleteQuestions, quizId);
+        jdbcTemplate.update(sqlDeleteQuiz, quizId);
     }
 }

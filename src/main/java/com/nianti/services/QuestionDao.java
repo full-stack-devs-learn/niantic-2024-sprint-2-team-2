@@ -186,11 +186,17 @@ public class QuestionDao
 
     public void deleteQuestion(int questionId)
     {
-        String sql = """
+        String sqlDeleteAnswers = """
+                DELETE FROM answer
+                WHERE question_id = ?;
+                """;
+
+        String sqlDeleteQuestion = """
                 DELETE FROM question
                 WHERE question_id = ?;
                 """;
 
-        jdbcTemplate.update(sql, questionId);
+        jdbcTemplate.update(sqlDeleteAnswers, questionId);
+        jdbcTemplate.update(sqlDeleteQuestion, questionId);
     }
 }
